@@ -23,8 +23,7 @@ public class Program {
 
 			conn = DB.getConnection();
 			ps = conn.prepareStatement("insert into seller" + "(Name, Email, BirthDate, BaseSalary, DepartmentId)"
-					+ "values " + "(?, ?, ?, ?, ?)",
-					Statement.RETURN_GENERATED_KEYS);
+					+ "values " + "(?, ?, ?, ?, ?)", Statement.RETURN_GENERATED_KEYS);
 			ps.setString(1, "Joao Victor");
 			ps.setString(2, "joao@gmail.com");
 			ps.setDate(3, new Date(sdf.parse("16/03/2000").getTime()));
@@ -33,9 +32,9 @@ public class Program {
 
 			int rowsAffected = ps.executeUpdate();
 
-			if(rowsAffected > 0) {
+			if (rowsAffected > 0) {
 				ResultSet rs = ps.getGeneratedKeys();
-				while(rs.next()) {
+				while (rs.next()) {
 					int id = rs.getInt(1);
 					System.out.println("Done! Id = " + id);
 				}
