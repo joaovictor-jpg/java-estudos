@@ -1,0 +1,26 @@
+package application;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+import model.entities.Contract;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyt");
+
+		System.out.println("Entre os dados do contrato:");
+		System.out.print("Numero: ");
+		int numero = sc.nextInt();
+		System.out.print("Data (dd/MM/yyyy): ");
+		LocalDate date = LocalDate.parse(sc.next(), fmt);
+		System.out.print("Valor do contrato: ");
+		double valueTotal = sc.nextDouble();
+
+		Contract contract = new Contract(numero, date, valueTotal);
+
+		sc.close();
+	}
+}

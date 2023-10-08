@@ -1,0 +1,31 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+
+public class Main {
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter full file path: ");
+		String path = sc.nextLine();
+		System.out.print("Enter salary: ");
+		double salary = sc.nextDouble();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String line = br.readLine();
+
+			while (line != null) {
+
+			}
+
+			System.out.println("Email of people whose salary is more than 2000.00:");
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} finally {
+			sc.close();
+		}
+	}
+
+}

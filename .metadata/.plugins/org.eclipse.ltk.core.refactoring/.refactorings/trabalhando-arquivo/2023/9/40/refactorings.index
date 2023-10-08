@@ -1,0 +1,5 @@
+1695942408355	Extract method 'filereader'
+1695942921556	Extract method 'filesreader_bufferedreader'
+1695943566500	Extract method 'try_with_resources'
+1695944078673	Extract method 'writefile'
+1695944978812	Extract method 'foldersworking'

@@ -1,0 +1,18 @@
+package model.entities;
+
+public class Employees {
+
+	private String name;
+	private Double wage;
+
+	public Employees() {
+
+	}
+
+	public Employees(String name, Double wage) {
+		super();
+		this.name = name;
+		this.wage = wage;
+	}
+
+}

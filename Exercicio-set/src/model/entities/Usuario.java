@@ -1,0 +1,54 @@
+package model.entities;
+
+import java.time.Instant;
+import java.util.Objects;
+
+public class Usuario implements Comparable<Usuario> {
+
+	private String name;
+	private Instant dataDeAcesso;
+
+	public Usuario() {
+	}
+
+	public Usuario(String name, Instant dataDeAcesso) {
+		this.name = name;
+		this.dataDeAcesso = dataDeAcesso;
+	}
+
+	@Override
+	public int hashCode() {
+		return Objects.hash(dataDeAcesso, name);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		return Objects.equals(dataDeAcesso, other.dataDeAcesso) && Objects.equals(name, other.name);
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public Instant getDataDeAcesso() {
+		return dataDeAcesso;
+	}
+	
+	@Override
+	public String toString() {
+		return name;
+	}
+
+	@Override
+	public int compareTo(Usuario obj) {
+		return name.toUpperCase().compareTo(obj.name.toUpperCase());
+	}
+
+}

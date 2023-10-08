@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Extract method &apos;private static void toRankForName()&apos; from &apos;application.Main.main(...)&apos; to &apos;application.Main&apos;&#x0D;&#x0A;- Original project: &apos;interface_comparable&apos;&#x0D;&#x0A;- Method name: &apos;toRankForName&apos;&#x0D;&#x0A;- Destination type: &apos;application.Main&apos;&#x0D;&#x0A;- Declared visibility: &apos;private&apos;" comments="false" description="Extract method &apos;toRankForName&apos;" destination="0" exceptions="false" flags="786434" id="org.eclipse.jdt.ui.extract.method" input="/src&lt;application{Main.java" name="toRankForName" replace="false" selection="269 462" stamp="1696199557688" version="1.0" visibility="2"/>
+</session>

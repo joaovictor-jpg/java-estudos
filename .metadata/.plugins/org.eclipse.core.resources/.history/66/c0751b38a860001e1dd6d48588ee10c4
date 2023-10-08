@@ -1,0 +1,15 @@
+package application;
+
+import java.io.BufferedWriter;
+import java.io.FileReader;
+import java.io.IOException;
+
+public class Main {
+	public static void main(String[] args) {
+		tr(BufferedWriter bw = new BufferedWriter(new FileReader())) {
+			
+		} catch (IOException e) {
+			// TODO: handle exception
+		}
+	}
+}

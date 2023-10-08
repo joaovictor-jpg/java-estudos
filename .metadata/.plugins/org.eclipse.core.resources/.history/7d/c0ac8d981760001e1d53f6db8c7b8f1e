@@ -1,0 +1,22 @@
+package application;
+
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Scanner;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		DateTimeFormatter fmt = DateTimeFormatter.ofPattern("dd/MM/yyyt")
+		
+		System.out.println("Entre os dados do contrato:");
+		System.out.print("Numero: ");
+		int numero = sc.nextInt();
+		System.out.print("Data (dd/MM/yyyy): ");
+		LocalDate
+		
+		
+		
+		sc.close();
+	}
+}

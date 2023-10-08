@@ -1,0 +1,36 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.time.Instant;
+import java.util.HashSet;
+import java.util.Scanner;
+import java.util.Set;
+
+import model.entities.Usuario;
+
+public class Main {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		System.out.print("Enter file full path: ");
+		String path = sc.next();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			String line = br.readLine();
+			Set<Usuario> usuarios = new HashSet<>();
+			int sum = 0;
+			while (line != null) {
+				String[] info = line.split(" ");
+				if (usuarios.add(new Usuario(info[0], Instant.parse(info[1]))))
+					sum++;
+				line = br.readLine();
+			}
+			System.out.println("Total users: " + sum);
+
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} finally {
+			sc.close();
+		}
+	}
+}

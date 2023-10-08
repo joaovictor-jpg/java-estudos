@@ -1,0 +1,16 @@
+package model.services;
+
+public class PaypalService implements OnlinePaymentService {
+
+	@Override
+	public Double paymentFee(double amount) {
+		return null;
+	}
+
+	@Override
+	public Double Interest(double amont, Integer months) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

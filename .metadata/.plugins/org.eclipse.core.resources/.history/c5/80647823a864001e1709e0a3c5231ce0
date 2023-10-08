@@ -1,0 +1,36 @@
+package application;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Scanner;
+import java.util.Set;
+import java.util.TreeSet;
+
+import model.entities.Product;
+
+public class Main {	
+
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		String path = sc.nextLine();
+		try (BufferedReader br = new BufferedReader(new FileReader(path))) {
+			
+			String line = br.readLine();
+			Set<Product> products = new TreeSet<Product>();
+			
+			while (line != null) {
+				String[] productArray = line.split(",");
+				products.add(new Product(productArray[0], Double.parseDouble(productArray[1])));
+				line = br.readLine();
+			}
+			final double avgMin = 0.0;
+			products.stream().mapToDouble(product -> avg = (avg + product.getPrice()) / products.size());
+		} catch (IOException e) {
+			System.out.println("Error: " + e.getMessage());
+		} finally {
+			sc.close();
+		}
+	}
+
+}
