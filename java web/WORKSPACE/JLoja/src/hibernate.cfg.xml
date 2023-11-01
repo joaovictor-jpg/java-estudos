@@ -40,6 +40,8 @@
         <!-- Criar as tabelas no banco de dados -->
         <property name="hbm2ddl.auto">update</property>
         <!-- Criar as tabelas no banco de dados -->
+        
+        <mapping class="br.com.jloja.entity.FabricanteEntity" />
 
     </session-factory>
 
