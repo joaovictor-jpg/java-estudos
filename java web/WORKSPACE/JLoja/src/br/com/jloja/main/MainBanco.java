@@ -16,7 +16,15 @@ public class MainBanco {
 		
 		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		
-		fabricanteDAO.adicionar(new FabricanteEntity(null, "Paulo"));
+//		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 2"));
+//		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 3"));
+//		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 4"));
+//		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 5"));
+		
+		FabricanteEntity fabriEntity = fabricanteDAO.buscarPorCodigo(5);
+		fabriEntity.setDescricao("teste 4 Alterado");
+//		fabricanteDAO.editar(fabriEntity);
+		fabricanteDAO.excluir(fabriEntity);
 	}
 
 }

@@ -1,6 +1,8 @@
 package br.com.jloja.entity;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NamedQueries;
+import org.hibernate.annotations.NamedQuery;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -10,6 +12,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "fabricante")
+@NamedQueries({
+		@NamedQuery(name = "FabricanteEntity.buscarPorCodigo", query = "SELECT fab FROM FabricanteEntity fab WHERE fab.idfabricante = :codigo") })
 public class FabricanteEntity {
 
 	@Id
