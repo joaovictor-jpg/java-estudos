@@ -13,7 +13,8 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "fabricante")
 @NamedQueries({
-		@NamedQuery(name = "FabricanteEntity.buscarPorCodigo", query = "SELECT fab FROM FabricanteEntity fab WHERE fab.idfabricante = :codigo") })
+		@NamedQuery(name = "FabricanteEntity.buscarPorCodigo", query = "SELECT fab FROM FabricanteEntity fab WHERE fab.idfabricante = :codigo"),
+		@NamedQuery(name = "FabricanteEntity.listar", query = "SELECT fab FROM FabricanteEntity fab") })
 public class FabricanteEntity {
 
 	@Id

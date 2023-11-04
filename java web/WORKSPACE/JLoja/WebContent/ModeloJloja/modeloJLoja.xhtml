@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
-xmlns:h="http://xmlns.jcp.org/jsf/html"
-xmlns:p="http://primefaces.org/ui"
-xmlns:f="http://xmlns.jcp.org/jsf/core"
-xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>JLoja</title>
-<link rel="stylesheet"
-	href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>JLoja</title>
+	<link rel="stylesheet"
+		href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
 </h:head>
 <h:body>
 	<div class="card">
@@ -19,7 +19,7 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 					<p:submenu label="Arquivo" icon="pi pi-fw pi-home">
 						<p:menuitem value="Sair" icon="pi pi-sign-in" />
 					</p:submenu>
-					
+
 					<p:submenu label="Manutenção" icon="pi pi-fw pi-pencil">
 						<p:menuitem value="Fabricante" icon="pi pi-building" />
 						<p:menuitem value="Produtos" icon="pi pi-cart-plus" />
@@ -30,12 +30,12 @@ xmlns:ui="http://java.sun.com/jsf/facelets">
 		</div>
 		<div class="col-12">
 			<p:panel>
-
+				<ui:insert name="modeloJLoja"></ui:insert>
 			</p:panel>
 		</div>
 		<div class="col-12">
-			<p:panel>
-				João Victor
+			<p:panel style="text-align:center">
+				<h:outputText value="João Victor" />
 			</p:panel>
 		</div>
 	</div>

@@ -1,5 +1,7 @@
 package br.com.jloja.DAO;
 
+import java.util.List;
+
 import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.query.Query;
@@ -76,6 +78,23 @@ public class FabricanteDAO {
 			session.close();
 		}
 		return fabricanteEntity;
+	}
+
+	public List<FabricanteEntity> listar() {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		List<FabricanteEntity> fabricantes = null;
+
+		try {
+			Query<FabricanteEntity> consultar = session.createNamedQuery("FabricanteEntity.listar",
+					FabricanteEntity.class);
+			fabricantes = consultar.list();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+
+		return fabricantes;
 	}
 
 }
