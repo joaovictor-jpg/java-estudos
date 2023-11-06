@@ -64,20 +64,21 @@ public class FabricanteDAO {
 		}
 	}
 
-	public FabricanteEntity buscarPorCodigo(Integer codigo) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		FabricanteEntity fabricanteEntity = null;
+	public FabricanteEntity buscarPorCodigo(Long codigo) {
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		FabricanteEntity fabricante = null;
+		
 		try {
-			Query<FabricanteEntity> consulta = session.createNamedQuery("FabricanteEntity.buscarPorCodigo",
-					FabricanteEntity.class);
+			Query<FabricanteEntity> consulta = sessao.createNamedQuery("FabricanteEntity.buscarPorCodigo", FabricanteEntity.class);		
 			consulta.setParameter("codigo", codigo);
-			fabricanteEntity = consulta.uniqueResult();
+			fabricante = consulta.uniqueResult();
 		} catch (RuntimeException ex) {
 			throw ex;
-		} finally {
-			session.close();
+		}finally {
+			sessao.close();
 		}
-		return fabricanteEntity;
+		return fabricante;
+		
 	}
 
 	public List<FabricanteEntity> listar() {
