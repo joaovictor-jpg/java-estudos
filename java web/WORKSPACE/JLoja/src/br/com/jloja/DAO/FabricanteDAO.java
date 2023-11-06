@@ -12,19 +12,19 @@ import br.com.jloja.util.HibernateUtil;
 public class FabricanteDAO {
 
 	public void adicionar(FabricanteEntity fabricante) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
 
 		try {
-			transaction = session.beginTransaction();
-			session.persist(fabricante);
-			transaction.commit();
-		} catch (Exception ex) {
-			if (transaction != null) {
-				transaction.rollback();
+			transacao = sessao.beginTransaction();
+			sessao.persist(fabricante);
+			transacao.commit();
+		} catch (Exception e) {
+			if (transacao != null) {
+				transacao.rollback();
 			}
 		} finally {
-			session.close();
+			sessao.close();
 		}
 	}
 

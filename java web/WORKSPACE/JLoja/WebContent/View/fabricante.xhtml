@@ -17,10 +17,10 @@
 				<f:facet name="header">
 						Fabricantes
 					</f:facet>
-				<p:column headerText="codigo" filterBy="#{fab.idfabricante}" >
+				<p:column headerText="codigo" filterBy="#{fab.idfabricante}">
 					<h:outputText value="#{fab.idfabricante}" />
 				</p:column>
-				<p:column headerText="Name" filterBy="#{fab.descricao}" >
+				<p:column headerText="Name" filterBy="#{fab.descricao}">
 					<h:outputText value="#{fab.descricao}" />
 				</p:column>
 				<p:column headerText="Ação" style="width:10%;text-align:center">
@@ -30,10 +30,31 @@
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton icon="pi pi-fw pi-plus-circle"
-						value="Novo Fabricante"></p:commandButton>
+						onclick="PF('dlgCad').show();" value="Novo Fabricante">
+					</p:commandButton>
 				</f:facet>
 			</p:dataTable>
 		</h:form>
+		<p:dialog widgetVar="dlgCad" id="cadfab"
+			header="Cadastro de Fabricante" modal="true" appendTo="@(body)"
+			resizable="false" draggable="false" width="30%">
+			<h:form id="fabCadastro">
+				<h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
+					width="100%">
+					<h:outputLabel value="código" />
+					<p:inputText disabled="true" id="id" value="" styles="width:30%;" />
+					<h:outputLabel value="Nome:" />
+					<p:inputText id="desc"
+						value="#{FabricanteMB.fabricanteEntity.descricao}" required="true"
+						style="width:100%;" />
+					<f:facet name="footer">
+						<p:commandButton icon="pi pi-fw pi-save"
+							actionListener="#{FabricanteMB.adicionarFabricante}"
+							value="Gravar" update="form:fabricante :fabCadastro:pnlCadastro :growl" />
+					</f:facet>
+				</h:panelGrid>
+			</h:form>
+		</p:dialog>
 	</ui:define>
 </ui:composition>
 </html>

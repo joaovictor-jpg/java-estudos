@@ -7,16 +7,31 @@ import javax.faces.view.ViewScoped;
 
 import br.com.jloja.DAO.FabricanteDAO;
 import br.com.jloja.entity.FabricanteEntity;
+import br.com.jloja.util.MsgUtil;
 
 @ManagedBean(name = "FabricanteMB")
 @ViewScoped
 public class FabricanteBean {
+
+	private FabricanteEntity fabricanteEntity;
 
 	private List<FabricanteEntity> listaFabricantes;
 	private List<FabricanteEntity> listaFabricantesFiltrados;
 
 	public List<FabricanteEntity> getListaFabricantes() {
 		return listaFabricantes;
+	}
+
+	public FabricanteBean() {
+		this.fabricanteEntity = new FabricanteEntity();
+	}
+
+	public FabricanteEntity getFabricanteEntity() {
+		return fabricanteEntity;
+	}
+
+	public void setFabricanteEntity(FabricanteEntity fabricanteEntity) {
+		this.fabricanteEntity = fabricanteEntity;
 	}
 
 	public void setListaFabricantes(List<FabricanteEntity> listaFabricantes) {
@@ -37,6 +52,17 @@ public class FabricanteBean {
 			listaFabricantes = dao.listar();
 		} catch (Exception e) {
 			throw e;
+		}
+	}
+
+	public void adicionarFabricante() {
+		try {
+			FabricanteDAO fabdao = new FabricanteDAO();
+			fabdao.adicionar(fabricanteEntity);
+			fabricanteEntity = new FabricanteEntity();
+			MsgUtil.msgInfo("Fabricante gravado com sucesso!!!");
+		} catch (Exception e) {
+			MsgUtil.msgError("Error ao Gravar fabricante: " + e.getMessage());
 		}
 	}
 
