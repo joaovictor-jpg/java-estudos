@@ -14,7 +14,7 @@ public class MainBanco {
 //			ex.printStackTrace();
 //		}
 		
-//		FabricanteDAO fabricanteDAO = new FabricanteDAO();
+		FabricanteDAO fabricanteDAO = new FabricanteDAO();
 		
 //		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 2"));
 //		fabricanteDAO.adicionar(new FabricanteEntity(null, "teste 3"));

@@ -42,6 +42,7 @@
         <!-- Criar as tabelas no banco de dados -->
         
         <mapping class="br.com.jloja.entity.FabricanteEntity" />
+        <mapping class="br.com.jloja.entity.UsuarioEntity" />
 
     </session-factory>
 
