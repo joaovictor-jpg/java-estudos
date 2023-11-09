@@ -1,11 +1,52 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
-<title>Insert title here</title>
-</head>
-<body>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 
-</body>
+<ui:composition template="/ModeloJloja/modeloJLoja.xhtml">
+
+	<ui:define name="modeloJLoja">
+		<h:form id="form">
+			<p:dataTable id="usuario" var="usu"
+				filteredValue="#{usuarioMB.listaUsuarioFiltrados}"
+				value="#{usuarioMB.listaUsuario}" rowsPerPageTemplate="5,10,15"
+				paginator="true" rows="5" emptyMessage="Nenhum registro encontrado.">
+				<f:facet name="header">
+					Usuário
+				</f:facet>
+				<p:column headerText="Código" filterBy="${usu.idusuario}"
+					style="width:10%">
+					<h:outputText value="#{usu.idusuario}" />
+				</p:column>
+				<p:column headerText="Nome" filterBy="${usu.nome}" style="width:25%">
+					<h:outputText value="#{usu.nome}" />
+				</p:column>
+				<p:column headerText="Login" filterBy="${usu.login}"
+					style="width:25%">
+					<h:outputText value="#{usu.login}" />
+				</p:column>
+				<p:column headerText="Senha" filterBy="${usu.senha}"
+					style="width:15%">
+					<h:outputText value="#{usu.senha}" />
+				</p:column>
+				<p:column headerText="Situção" filterBy="${usu.situacao}"
+					style="width:15%">
+					<h:outputText value="#{usu.situacao}" />
+				</p:column>
+				<p:column headerText="Ação" style="width:10%; text-align:center">
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-fw pi-plus-circle" onclick=""
+						value="Novo Usuário" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
+
+
 </html>
