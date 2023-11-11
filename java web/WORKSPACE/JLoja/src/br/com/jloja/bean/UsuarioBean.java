@@ -87,8 +87,10 @@ public class UsuarioBean {
 			UsuarioDAO usuDAO = new UsuarioDAO();
 			usuDAO.adicionar(usuario);
 			MsgUtil.msgInfo("Usuário gravado com sucesso!");
+			System.out.println("Teste ok");
 		} catch (Exception e) {
 			MsgUtil.msgError("Error ao gravar usuário: " + e.getMessage());
+			System.out.println("Teste Error");
 		}
 	}
 
