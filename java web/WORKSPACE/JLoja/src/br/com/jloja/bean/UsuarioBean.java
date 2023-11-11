@@ -21,10 +21,6 @@ public class UsuarioBean {
 	private Long codigo;
 
 	public UsuarioBean() {
-	}
-
-	public UsuarioBean(List<UsuarioEntity> listaUsuario, List<UsuarioEntity> listaUsuarioFiltrados,
-			UsuarioEntity usuario, Long codigo) {
 		this.usuario = new UsuarioEntity();
 	}
 

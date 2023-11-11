@@ -13,19 +13,15 @@ import jakarta.persistence.Table;
 @Entity
 @Table(name = "usuario")
 @NamedQueries({
-	@NamedQuery(name = "UsuarioEntity.buscarPorCodigo", 
-			query = "SELECT usu FROM UsuarioEntity usu WHERE usu.idusuario = :codigo"),
-	@NamedQuery(name = "UsuarioEntity.listar",
-			query = "SELECT usu FROM UsuarioEntity usu"),
-	@NamedQuery(name = "UsuarioEntity.login",
-			query = "SELECT usu FROM UsuarioEntity usu WHERE usu.situacao = :situacao")
-})
+		@NamedQuery(name = "UsuarioEntity.buscarPorCodigo", query = "SELECT usu FROM UsuarioEntity usu WHERE usu.idusuario = :codigo"),
+		@NamedQuery(name = "UsuarioEntity.listar", query = "SELECT usu FROM UsuarioEntity usu"),
+		@NamedQuery(name = "UsuarioEntity.login", query = "SELECT usu FROM UsuarioEntity usu WHERE usu.situacao = :situacao") })
 public class UsuarioEntity {
 
 	@Id
 	@GeneratedValue(generator = "increment")
 	@GenericGenerator(name = "increment", strategy = "increment")
-	private Long idusuario;	
+	private Long idusuario;
 	@Column(length = 60)
 	private String nome;
 	@Column(length = 20)
@@ -35,12 +31,12 @@ public class UsuarioEntity {
 	@Column(length = 1)
 	private char situacao;
 
-	public Long getIdUsuario() {
+	public Long getIdusuario() {
 		return idusuario;
 	}
 
-	public void setIdUsuario(Long idUsuario) {
-		this.idusuario = idUsuario;
+	public void setIdusuario(Long idusuario) {
+		this.idusuario = idusuario;
 	}
 
 	public String getNome() {
