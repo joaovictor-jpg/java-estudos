@@ -4,6 +4,8 @@ import java.util.List;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.ExternalContext;
+import javax.faces.context.FacesContext;
 
 import br.com.jloja.DAO.UsuarioDAO;
 import br.com.jloja.entity.UsuarioEntity;
@@ -17,6 +19,18 @@ public class UsuarioBean {
 	private List<UsuarioEntity> listaUsuariosFiltrados;
 	private UsuarioEntity usuario;
 	private Long codigo;
+
+	private UsuarioEntity usuarioLogado;
+
+	public UsuarioEntity getUsuarioLogado() {
+		if (usuarioLogado == null)
+			usuarioLogado = new UsuarioEntity();
+		return usuarioLogado;
+	}
+
+	public void setUsuarioLogado(UsuarioEntity usuarioLogado) {
+		this.usuarioLogado = usuarioLogado;
+	}
 
 	public List<UsuarioEntity> getListaUsuarios() {
 		return listaUsuarios;
@@ -103,6 +117,25 @@ public class UsuarioBean {
 			MsgUtil.msgInfo("Usuário excluído com Sucesso!");
 		} catch (Exception ex) {
 			MsgUtil.msgError("Erro ao tentar excluir usuário: " + ex.getMessage());
+		}
+	}
+
+	public void autenticar() {
+		try {
+			UsuarioDAO usuDAO = new UsuarioDAO();
+			usuarioLogado = usuDAO.autenticar(usuarioLogado.getLogin(), usuarioLogado.getSenha());
+			if (usuarioLogado == null) {
+				MsgUtil.msgError("Usuário e/ou senha inmválidos");
+				usuarioLogado = new UsuarioEntity();
+			} else if (usuarioLogado.getSituacao() == 'N') {
+				MsgUtil.msgError("Este usuário está inativo no sistema!");
+				usuarioLogado = null;
+			} else {
+				ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+				ec.redirect("/jloja/index.xhtml");
+			}
+		} catch (Exception e) {
+			MsgUtil.msgError("Error ao autenticar usuário");
 		}
 	}
 

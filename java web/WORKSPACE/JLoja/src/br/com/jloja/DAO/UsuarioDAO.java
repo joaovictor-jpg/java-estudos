@@ -62,11 +62,11 @@ public class UsuarioDAO {
 			session.close();
 		}
 	}
-	
+
 	public UsuarioEntity buscarPorCodigo(Long codigo) {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		UsuarioEntity usuario = null;
-		
+
 		try {
 			Query<UsuarioEntity> consulta = session.createNamedQuery("UsuarioEntity.buscarPorCodigo",
 					UsuarioEntity.class);
@@ -79,11 +79,11 @@ public class UsuarioDAO {
 		}
 		return usuario;
 	}
-	
+
 	public List<UsuarioEntity> listar() {
 		Session session = HibernateUtil.getSessionFactory().openSession();
 		List<UsuarioEntity> usuarios = new ArrayList<>();
-		
+
 		try {
 			Query<UsuarioEntity> consulta = session.createNamedQuery("UsuarioEntity.listar", UsuarioEntity.class);
 			usuarios = consulta.list();
@@ -93,6 +93,23 @@ public class UsuarioDAO {
 			session.close();
 		}
 		return usuarios;
+	}
+
+	public UsuarioEntity autenticar(String login, String senha) {
+		Session session = HibernateUtil.getSessionFactory().openSession();
+		UsuarioEntity usuario = null;
+
+		try {
+			Query<UsuarioEntity> consulta = session.createNamedQuery("UsuarioEntity.login", UsuarioEntity.class);
+			consulta.setParameter("login", login);
+			consulta.setParameter("senha", senha);
+			usuario = (UsuarioEntity) consulta.uniqueResult();
+		} catch (Exception e) {
+			throw e;
+		} finally {
+			session.close();
+		}
+		return usuario;
 	}
 
 }
