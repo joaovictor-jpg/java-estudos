@@ -1,8 +1,6 @@
 package br.com.jloja.bean;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -15,29 +13,25 @@ import br.com.jloja.util.MsgUtil;
 @SessionScoped
 public class UsuarioBean {
 
-	private List<UsuarioEntity> listaUsuario = new ArrayList<>();
-	private List<UsuarioEntity> listaUsuarioFiltrados = new ArrayList<>();
+	private List<UsuarioEntity> listaUsuarios;
+	private List<UsuarioEntity> listaUsuariosFiltrados;
 	private UsuarioEntity usuario;
 	private Long codigo;
 
-	public UsuarioBean() {
-		this.usuario = new UsuarioEntity();
+	public List<UsuarioEntity> getListaUsuarios() {
+		return listaUsuarios;
 	}
 
-	public List<UsuarioEntity> getListaUsuario() {
-		return listaUsuario;
+	public void setListaUsuarios(List<UsuarioEntity> listaUsuarios) {
+		this.listaUsuarios = listaUsuarios;
 	}
 
-	public void setListaUsuario(List<UsuarioEntity> listaUsuario) {
-		this.listaUsuario = listaUsuario;
+	public List<UsuarioEntity> getListaUsuariosFiltrados() {
+		return listaUsuariosFiltrados;
 	}
 
-	public List<UsuarioEntity> getListaUsuarioFiltrados() {
-		return listaUsuarioFiltrados;
-	}
-
-	public void setListaUsuarioFiltrados(List<UsuarioEntity> listaUsuarioFiltrados) {
-		this.listaUsuarioFiltrados = listaUsuarioFiltrados;
+	public void setListaUsuariosFiltrados(List<UsuarioEntity> listaUsuariosFiltrados) {
+		this.listaUsuariosFiltrados = listaUsuariosFiltrados;
 	}
 
 	public UsuarioEntity getUsuario() {
@@ -56,41 +50,27 @@ public class UsuarioBean {
 		this.codigo = codigo;
 	}
 
-	@Override
-	public int hashCode() {
-		return Objects.hash(codigo);
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		UsuarioBean other = (UsuarioBean) obj;
-		return Objects.equals(codigo, other.codigo);
+	public UsuarioBean() {
+		this.usuario = new UsuarioEntity();
 	}
 
 	public void listarUsuario() {
 		try {
 			UsuarioDAO usuDAO = new UsuarioDAO();
-			listaUsuario = usuDAO.listar();
-		} catch (Exception e) {
-			throw e;
+			listaUsuarios = usuDAO.listar();
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
 	public void adicionarUsuario() {
 		try {
-			UsuarioDAO usuDAO = new UsuarioDAO();
-			usuDAO.adicionar(usuario);
-			MsgUtil.msgInfo("Usuário gravado com sucesso!");
-			System.out.println("Teste ok");
-		} catch (Exception e) {
-			MsgUtil.msgError("Error ao gravar usuário: " + e.getMessage());
-			System.out.println("Teste Error");
+			UsuarioDAO usudao = new UsuarioDAO();
+			usudao.adicionar(usuario);
+			usuario = new UsuarioEntity();
+			MsgUtil.msgInfo("Usuário gravado com Sucesso!");
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao gravar usuário: " + ex.getMessage());
 		}
 	}
 
@@ -98,30 +78,31 @@ public class UsuarioBean {
 		try {
 			UsuarioDAO usuDAO = new UsuarioDAO();
 			usuario = usuDAO.buscarPorCodigo(codigo);
-		} catch (Exception e) {
-			throw e;
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
 
 	public void editarUsuario() {
 		try {
-			UsuarioDAO usuDAO = new UsuarioDAO();
-			usuDAO.editar(usuario);
+			UsuarioDAO usudao = new UsuarioDAO();
+			usudao.editar(usuario);
 			usuario = new UsuarioEntity();
-			MsgUtil.msgInfo("Usuário editado com sucesso!");
-		} catch (Exception e) {
-			MsgUtil.msgError("Erro ao tentar editar um usuáro: " + e.getMessage());
+			MsgUtil.msgInfo("Usuário editado com Sucesso!");
+
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao tentar editar um usuário: " + ex.getMessage());
 		}
 	}
 
-	public void excluir() {
+	public void excluirUsuario() {
 		try {
-			UsuarioDAO usuDAO = new UsuarioDAO();
-			usuDAO.excluir(usuario);
+			UsuarioDAO usudao = new UsuarioDAO();
+			usudao.excluir(usuario);
 			usuario = new UsuarioEntity();
-			MsgUtil.msgInfo("Usuário excluído com sucesso!");
-		} catch (Exception e) {
-			MsgUtil.msgError("Erro ao tentar excluir usuário: " + e.getMessage());
+			MsgUtil.msgInfo("Usuário excluído com Sucesso!");
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao tentar excluir usuário: " + ex.getMessage());
 		}
 	}
 

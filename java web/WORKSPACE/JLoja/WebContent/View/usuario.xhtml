@@ -12,8 +12,8 @@
 		<h:form id="form">
 			<f:event listener="#{usuarioMB.listarUsuario}" type="preRenderView"></f:event>
 			<p:dataTable id="usuario" var="usu"
-				filteredValue="#{usuarioMB.listaUsuarioFiltrados}"
-				value="#{usuarioMB.listaUsuario}" rowsPerPageTemplate="5,10,15"
+				filteredValue="#{usuarioMB.listaUsuariosFiltrados}"
+				value="#{usuarioMB.listaUsuarios}" rowsPerPageTemplate="5,10,15"
 				paginator="true" rows="5" emptyMessage="Nenhum registro encontrado.">
 				<f:facet name="header">
 					Usuário
@@ -42,6 +42,16 @@
 						onclick="PF('dlgEdi').show()"
 						actionListener="#{usuarioMB.buscarUsuarioCodigo(usu.idusuario)}"
 						update=":usuEditar:pnlEditar"></p:commandButton>
+					<p:commandButton id="btnEXC" icon="pi pi-fw pi-trash"
+						title="Excluir"
+						actionListener="#{usuarioMB.buscarUsuarioCodigo(usu.idusuario)}">
+					</p:commandButton>
+					<p:overlayPanel id="excPanel" for="btnEXC" hideEffect="fade">
+						<p:commandButton value="sim" icon="pi pi-check-circle"
+							actionListener="#{usuarioMB.excluirUsuario}"
+							update=":form:usuario :growl" />
+						<p:commandButton value="Não" icon="pi pi-times-circle" update=":form:usuario" />
+					</p:overlayPanel>
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton icon="pi pi-fw pi-plus-circle"
@@ -88,35 +98,35 @@
 		</p:dialog>
 
 		<p:dialog widgetVar="dlgEdi" id="ediusu" header="Edição de Usuário"
-			model="true" appendTo="@(body)" resizable="false" draggable="false"
+			modal="true" appendTo="@(body)" resizable="false" draggable="false"
 			width="30%">
 			<h:form id="usuEditar">
 				<h:panelGrid id="pnlEditar" columns="2" cellpadding="5" width="100%">
 					<h:outputLabel value="Código" />
-					<p:inputText disabled="true" id="id" value="#{usuarioMB.usuario.idusuario}" style="width:30%" />
-					<h:outputLabel value="Nome:" />
+					<p:inputText disabled="true" id="id"
+						value="#{usuarioMB.usuario.idusuario}" style="width:30%;" />
+					<h:outputLabel value="Nome" />
 					<p:inputText id="nome" value="#{usuarioMB.usuario.nome}"
 						required="true" style="width:100%;">
 					</p:inputText>
-					<h:outputLabel value="Login:" />
+					<h:outputLabel value="Login" />
 					<p:inputText id="login" value="#{usuarioMB.usuario.login}"
 						required="true" style="width:100%;">
 					</p:inputText>
 					<h:outputLabel value="Senha" />
-					<p:password id="senha" value="#{usuarioMB.usuario.senha}"
-						required="true" style="width:100%;">
-					</p:password>
+					<p:inputText id="senha" value="#{usuarioMB.usuario.senha}"
+						required="true" style="width:100%">
+					</p:inputText>
 					<h:outputText value="Ativo?" />
 					<p:selectOneRadio id="console"
 						value="#{usuarioMB.usuario.situacao}">
 						<f:selectItem itemLabel="Sim" itemValue="S" />
 						<f:selectItem itemLabel="Não" itemValue="N" />
 					</p:selectOneRadio>
-
 					<f:facet name="footer">
-						<p:commandButton value="Gravar"
+						<p:commandButton value="Gravar edição"
 							actionListener="#{usuarioMB.editarUsuario}"
-							icon="pi pi-fw pi-save"
+							onclick="PF('dlgEdi').hide();" icon="pi pi-save"
 							update=":form:usuario :usuCadastro:pnlCadastro :growl" />
 					</f:facet>
 				</h:panelGrid>
