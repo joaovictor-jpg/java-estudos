@@ -139,4 +139,25 @@ public class UsuarioBean {
 		}
 	}
 
+	public void sair() {
+		try {
+			usuarioLogado = null;
+			ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+			ec.redirect("/jloja/View/login.xhtml");
+		} catch (Exception e) {
+			MsgUtil.msgError("Erro ao sair do sistema!");
+		}
+	}
+
+	public void verificarLogin() {
+		try {
+			if (usuarioLogado == null || usuarioLogado.getIdusuario() == null) {
+				ExternalContext ec = FacesContext.getCurrentInstance().getExternalContext();
+				ec.redirect("/jloja/View/login.xhtml");
+			}
+		} catch (Exception e) {
+			MsgUtil.msgError("Erro ao verificar usuário!");
+		}
+	}
+
 }

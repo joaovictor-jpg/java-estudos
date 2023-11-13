@@ -15,8 +15,7 @@ import jakarta.persistence.Table;
 @NamedQueries({
 		@NamedQuery(name = "UsuarioEntity.buscarPorCodigo", query = "SELECT usu FROM UsuarioEntity usu WHERE usu.idusuario = :codigo"),
 		@NamedQuery(name = "UsuarioEntity.listar", query = "SELECT usu FROM UsuarioEntity usu"),
-		@NamedQuery(name = "UsuarioEntity.login", query = "SELECT usu FROM UsuarioEntity usu"
-				+ "WHERE usu.login = :login AND usu.senha = :senha") })
+		@NamedQuery(name = "UsuarioEntity.login", query = "SELECT usu FROM UsuarioEntity usu " + "WHERE usu.login = :login AND usu.senha = :senha")})
 public class UsuarioEntity {
 
 	@Id

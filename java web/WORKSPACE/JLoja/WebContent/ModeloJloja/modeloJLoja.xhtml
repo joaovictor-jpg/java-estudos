@@ -8,7 +8,12 @@
 <h:head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
 	<title>JLoja</title>
-	<p:growl id="growl"/>
+	<p:growl id="growl" />
+
+	<f:metadata>
+		<f:event listener="#{usuarioMB.verificarLogin}" type="preRenderView"></f:event>
+	</f:metadata>
+
 	<link rel="stylesheet"
 		href="https://unpkg.com/primeflex@3.1.2/primeflex.css" />
 </h:head>
@@ -18,13 +23,17 @@
 			<h:form>
 				<p:menubar>
 					<p:submenu label="Arquivo" icon="pi pi-fw pi-home">
-						<p:menuitem value="Sair" icon="pi pi-sign-in" />
+						<p:menuitem value="Sair" icon="pi pi-sign-in"
+							actionListener="${usuarioMB.sair}" />
 					</p:submenu>
 
 					<p:submenu label="Manutenção" icon="pi pi-fw pi-pencil">
-						<p:menuitem value="Fabricante" icon="pi pi-building" />
-						<p:menuitem value="Produtos" icon="pi pi-cart-plus" />
-						<p:menuitem value="Usuário" icon="pi pi-user" />
+						<p:menuitem value="Fabricante" icon="pi pi-building"
+							url="/jloja/View/fabricante.xhtml" />
+						<p:menuitem value="Produtos" icon="pi pi-cart-plus"
+							url="/jloja/View/produto.xhtml" />
+						<p:menuitem value="Usuário" icon="pi pi-user"
+							url="/jloja/View/usuario.xhtml" />
 					</p:submenu>
 				</p:menubar>
 			</h:form>
