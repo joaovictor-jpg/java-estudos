@@ -19,7 +19,7 @@ import jakarta.persistence.Table;
 @Table(name = "produto")
 @NamedQueries({
 		@NamedQuery(name = "ProdutoEntity.buscarPorCodigo", query = "SELECT pro FROM ProdutoEntity pro WHERE pro.idproduto = :codigo"),
-		@NamedQuery(name = "PrutoEntity.listar", query = "SELECT pro FROM ProdutoEntity pro") })
+		@NamedQuery(name = "ProdutoEntity.listar", query = "SELECT pro FROM ProdutoEntity pro") })
 public class ProdutoEntity {
 
 	@Id

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+<ui:composition template="/ModeloJloja/modeloJLoja.xhtml">
+	<ui:define name="modeloJLoja">
+		<h:form id="form">
+
+			<f:event listener="#{produtoMB.listarProduto}" type="preRenderView"></f:event>
+
+			<p:dataTable id="produto" var="pro"
+				filteredValue="#{produtoMB.listarProdutosFiltrados}"
+				value="#{produtoMB.listarProdutos}"
+				emptyMessage="Nenhum registro encntrado."
+				rowsPerPageTemplate="5,10,15" paginator="true" rows="5">
+
+				<f:facet name="header">
+						Produtos
+					</f:facet>
+
+				<p:column headerText="Código" filterBy="#{pro.idproduto}">
+					<h:outputText value="#{pro.idproduto}" />
+				</p:column>
+				<p:column headerText="Descrição" filterBy="#{pro.descricao}">
+					<h:outputText value="#{pro.decricao}" />
+				</p:column>
+				<p:column headerText="Preço" filterBy="#{pro.valor}">
+					<h:outputText value="#{pro.valor}" />
+				</p:column>
+				<p:column headerText="Qtde" filterBy="#{pro.quantidade}">
+					<h:outputText value="#{pro.quantidade}" />
+				</p:column>
+				<p:column headerText="Fabricante"
+					filterBy="#{pro.fabricante_idfabricante.descricao}">
+					<h:outputText
+						value="#{pro.fabricante_idfabricante.descricao.descricao}" />
+				</p:column>
+				<p:column headerText="Usuário Cadastrado"
+					filterBy="#{pro.usuario_idusuario.nome}">
+					<h:outputText value="#{pro.usuario_idusuario.nome}" />
+				</p:column>
+				<p:column headerText="Ação" style="width:10%;text-align: center">
+					<p:commandButton icon="pi pi-penciel" title="Alterar"
+						onclick="PF('dlgEdi').show();"></p:commandButton>
+					<p:commandButton icon="pi pi-trash" title="Excluir" id="btnExc"></p:commandButton>
+				</p:column>
+				<f:facet name="footer">
+					<p:commandButton icon="pi pi-plus-circle"
+						onclick="PF('dlgCad').show();" value="Novo Produto"></p:commandButton>
+				</f:facet>
+
+			</p:dataTable>
+
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+</html>
