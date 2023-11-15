@@ -78,8 +78,8 @@
 							value="#{produtoMB.produtoEntity.quantidade}" required="true"
 							style="width:100%;"></p:inputText>
 						<h:outputLabel value="Usuário" />
-						<p:inputText value="#{usuarioMB.usuarioLogado.nome}" disabled="true"
-							style="width:100%;"></p:inputText>
+						<p:inputText value="#{usuarioMB.usuarioLogado.nome}"
+							disabled="true" style="width:100%;"></p:inputText>
 
 					</h:panelGrid>
 					<h:panelGrid id="pnlBuscar" columns="5" cellpadding="5"
@@ -88,7 +88,8 @@
 						<h:outputLabel value="Fabricante" />
 						<p:inputText value="#{FabricanteMB.fabricanteEntity.descricao}"
 							disabled="true" style="width:100%;"></p:inputText>
-						<p:commandButton onclick="" icon="pi pi-search"></p:commandButton>
+						<p:commandButton onclick="PF('dlgFabricante').show();"
+							icon="pi pi-search"></p:commandButton>
 					</h:panelGrid>
 					<h:panelGrid>
 						<f:facet name="footer">
@@ -96,6 +97,32 @@
 						</f:facet>
 					</h:panelGrid>
 				</h:form>
+
+			</p:dialog>
+
+			<p:dialog widgetVar="dlgFabricante" id="buscarFab"
+				header="Fabricantes" model="true" appendTo="@(body)"
+				resizable="false" draggable="false" width="30%">
+
+				<f:event listener="#{FabricanteMB.listarFabricante}"
+					type="preRenderView"></f:event>
+
+				<p:dataTable id="fabricante" var="fab"
+					value="#{FabricanteMB.listaFabricantes}">
+
+					<p:column headerText="Fabricante">
+						<h:outputText value="#{fab.descricao}" />
+					</p:column>
+					<p:column headerText="Selecionar"
+						style="width:20$;text-align:center">
+
+						<p:commandButton onclick="PF('dlgFabricante').hide();"
+							icon="pi pi-check-circle" title="Selecionar"
+							actionListener="#{FabricanteMB.buscarFabricanteCodigo(fab.idfabricante)}"></p:commandButton>
+
+					</p:column>
+
+				</p:dataTable>
 
 			</p:dialog>
 
