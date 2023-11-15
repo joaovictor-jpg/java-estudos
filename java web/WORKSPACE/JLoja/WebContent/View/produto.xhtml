@@ -55,6 +55,50 @@
 
 			</p:dataTable>
 
+			<p:dialog widgetVar="dlgCad" id="cadpro" header="Cadastro de Produto"
+				model="true" appendTo="@(body)" resizable="false" draggable="false"
+				width="30%">
+
+				<h:form id="proCadastro">
+					<h:panelGrid id="pnlCadastro" column="2" cellpadding="5"
+						width="100%">
+
+						<h:outputLabel value="Código" />
+						<p:inputText disabled="true" id="id" value="" style="width:30%" />
+						<h:outputLabel value="Nome:" />
+						<p:inputText id="desc"
+							value="#{produtoMB.produtoEntity.descricao}" required="true"
+							style="width:100%;"></p:inputText>
+						<h:outputLabel value="Valor:" />
+						<p:inputText id="preco" symbol="R$ "
+							value="#{produtoMB.produtoEntity.valor}" required="true"
+							style="width:100%;"></p:inputText>
+						<h:outputLabel value="Qtde:" />
+						<p:inputText id="qtde"
+							value="#{produtoMB.produtoEntity.quantidade}" required="true"
+							style="width:100%;"></p:inputText>
+						<h:outputLabel value="Usuário" />
+						<p:inputText value="#{usuarioMB.usuarioLogado.nome}" disabled="true"
+							style="width:100%;"></p:inputText>
+
+					</h:panelGrid>
+					<h:panelGrid id="pnlBuscar" columns="5" cellpadding="5"
+						width="100%">
+
+						<h:outputLabel value="Fabricante" />
+						<p:inputText value="#{FabricanteMB.fabricanteEntity.descricao}"
+							disabled="true" style="width:100%;"></p:inputText>
+						<p:commandButton onclick="" icon="pi pi-search"></p:commandButton>
+					</h:panelGrid>
+					<h:panelGrid>
+						<f:facet name="footer">
+							<p:commandButton value="Gravar" icon="pi pi-save"></p:commandButton>
+						</f:facet>
+					</h:panelGrid>
+				</h:form>
+
+			</p:dialog>
+
 		</h:form>
 	</ui:define>
 </ui:composition>
