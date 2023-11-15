@@ -43,6 +43,7 @@
         
         <mapping class="br.com.jloja.entity.FabricanteEntity" />
         <mapping class="br.com.jloja.entity.UsuarioEntity" />
+        <mapping class="br.com.jloja.entity.ProdutoEntity" />
 
     </session-factory>
 
