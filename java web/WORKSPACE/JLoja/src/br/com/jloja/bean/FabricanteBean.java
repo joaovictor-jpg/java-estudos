@@ -103,5 +103,9 @@ public class FabricanteBean {
 		}
 
 	}
+	
+	public void limpar() {
+		fabricanteEntity = new FabricanteEntity();
+	}
 
 }

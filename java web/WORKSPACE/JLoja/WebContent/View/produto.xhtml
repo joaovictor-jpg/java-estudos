@@ -6,27 +6,27 @@
 	xmlns:f="http://xmlns.jcp.org/jsf/core"
 	xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
 
+
 <ui:composition template="/ModeloJloja/modeloJLoja.xhtml">
 	<ui:define name="modeloJLoja">
+
 		<h:form id="form">
 
 			<f:event listener="#{produtoMB.listarProduto}" type="preRenderView"></f:event>
 
 			<p:dataTable id="produto" var="pro"
-				filteredValue="#{produtoMB.listarProdutosFiltrados}"
-				value="#{produtoMB.listarProdutos}"
-				emptyMessage="Nenhum registro encntrado."
+				filteredValue="#{produtoMB.listaProdutosFiltrados}"
+				value="#{produtoMB.listaProdutos}"
+				emptyMessage="Nenhum registro encontrado."
 				rowsPerPageTemplate="5,10,15" paginator="true" rows="5">
-
 				<f:facet name="header">
-						Produtos
-					</f:facet>
-
+			Produtos
+			</f:facet>
 				<p:column headerText="Código" filterBy="#{pro.idproduto}">
 					<h:outputText value="#{pro.idproduto}" />
 				</p:column>
 				<p:column headerText="Descrição" filterBy="#{pro.descricao}">
-					<h:outputText value="#{pro.decricao}" />
+					<h:outputText value="#{pro.descricao}" />
 				</p:column>
 				<p:column headerText="Preço" filterBy="#{pro.valor}">
 					<h:outputText value="#{pro.valor}" />
@@ -34,100 +34,161 @@
 				<p:column headerText="Qtde" filterBy="#{pro.quantidade}">
 					<h:outputText value="#{pro.quantidade}" />
 				</p:column>
+
 				<p:column headerText="Fabricante"
 					filterBy="#{pro.fabricante_idfabricante.descricao}">
-					<h:outputText
-						value="#{pro.fabricante_idfabricante.descricao.descricao}" />
+					<h:outputText value="#{pro.fabricante_idfabricante.descricao}" />
 				</p:column>
-				<p:column headerText="Usuário Cadastrado"
+
+				<p:column headerText="Usuário Cadastro"
 					filterBy="#{pro.usuario_idusuario.nome}">
 					<h:outputText value="#{pro.usuario_idusuario.nome}" />
 				</p:column>
+
 				<p:column headerText="Ação" style="width:10%;text-align: center">
-					<p:commandButton icon="pi pi-penciel" title="Alterar"
-						onclick="PF('dlgEdi').show();"></p:commandButton>
-					<p:commandButton icon="pi pi-trash" title="Excluir" id="btnExc"></p:commandButton>
+					<p:commandButton icon="pi pi-pencil" title="Alterar"
+						onclick="PF('dlgEdi').show();"
+						actionListener="#{produtoMB.buscarProdutoCodigo(pro.idproduto)}"
+						action="#{fabricanteMB.buscarFabricanteCodigo(pro.fabricante_idfabricante.idfabricante)}"
+						update=":proEditar:pnlEditar :proEditar:pnlBuscaEdi">
+					</p:commandButton>
+					<p:commandButton id="btnExc" icon="pi pi-trash" title="Excluir"
+					actionListener="${produtoMB.buscarProdutoCodigo(pro.idproduto)}">
+					</p:commandButton>
+					<p:overlayPanel id="excPanel" for="btnExc">
+						<p:commandButton value="Sim" icon="pi pi-check-circle"
+						actionListener="#{produtoMB.excluirProduto}"
+						update=":form:produto :growl" />						
+						<p:commandButton value="Não" icon="pi pi-times-circle" update=":form:produto"/>
+					</p:overlayPanel>
 				</p:column>
 				<f:facet name="footer">
 					<p:commandButton icon="pi pi-plus-circle"
-						onclick="PF('dlgCad').show();" value="Novo Produto"></p:commandButton>
+						onclick="PF('dlgCad').show();" value="Novo Produto" />
 				</f:facet>
-
-			</p:dataTable>
-
-			<p:dialog widgetVar="dlgCad" id="cadpro" header="Cadastro de Produto"
-				model="true" appendTo="@(body)" resizable="false" draggable="false"
+			</p:dataTable>		
+			
+		</h:form>
+		
+		
+		<p:dialog widgetVar="dlgCad" id="cadpro" header="Cadastro de Produto"
+				modal="true" appendTo="@(body)	" resizable="false" draggable="false"
 				width="30%">
-
 				<h:form id="proCadastro">
-					<h:panelGrid id="pnlCadastro" column="2" cellpadding="5"
+					<h:panelGrid id="pnlCadastro" columns="2" cellpadding="5"
 						width="100%">
-
 						<h:outputLabel value="Código" />
 						<p:inputText disabled="true" id="id" value="" style="width:30%" />
 						<h:outputLabel value="Nome:" />
 						<p:inputText id="desc"
 							value="#{produtoMB.produtoEntity.descricao}" required="true"
-							style="width:100%;"></p:inputText>
+							style="wdth:100%;">
+						</p:inputText>
 						<h:outputLabel value="Valor:" />
-						<p:inputText id="preco" symbol="R$ "
+						<p:inputNumber id="preco" symbol="R$ "
 							value="#{produtoMB.produtoEntity.valor}" required="true"
-							style="width:100%;"></p:inputText>
+							style="wdth:100%;">
+						</p:inputNumber>
 						<h:outputLabel value="Qtde:" />
 						<p:inputText id="qtde"
 							value="#{produtoMB.produtoEntity.quantidade}" required="true"
-							style="width:100%;"></p:inputText>
-						<h:outputLabel value="Usuário" />
+							style="wdth:100%;">
+						</p:inputText>
+						<h:outputLabel value="Usuário:" />
 						<p:inputText value="#{usuarioMB.usuarioLogado.nome}"
-							disabled="true" style="width:100%;"></p:inputText>
-
+							disabled="true" style="wdth:100%;">
+						</p:inputText>
 					</h:panelGrid>
-					<h:panelGrid id="pnlBuscar" columns="5" cellpadding="5"
+					<h:panelGrid id="pnlBusca" columns="5" cellpadding="5"
 						width="100%">
-
-						<h:outputLabel value="Fabricante" />
+						<h:outputLabel value="Fabricante:" />
 						<p:inputText value="#{FabricanteMB.fabricanteEntity.descricao}"
-							disabled="true" style="width:100%;"></p:inputText>
-						<p:commandButton onclick="PF('dlgFabricante').show();"
-							icon="pi pi-search"></p:commandButton>
+							disabled="true" style="wdth:100%;">
+						</p:inputText>
+						<p:commandButton onclick="PF('dlgFabricante').show();" icon="pi pi-search"></p:commandButton>
 					</h:panelGrid>
 					<h:panelGrid>
 						<f:facet name="footer">
-							<p:commandButton value="Gravar" icon="pi pi-save"></p:commandButton>
+							<p:commandButton value="Gravar" icon="pi pi-save" 
+							actionListener="#{produtoMB.adicionarProduto(usuarioMB.usuarioLogado, FabricanteMB.fabricanteEntity)}"
+							action="#{FabricanteMB.limpar}"
+							update=":form:produto :proCadastro:pnlCadastro :proCadastro:pnlBusca :growl"
+							/>
 						</f:facet>
 					</h:panelGrid>
 				</h:form>
-
 			</p:dialog>
 
-			<p:dialog widgetVar="dlgFabricante" id="buscarFab"
-				header="Fabricantes" model="true" appendTo="@(body)"
-				resizable="false" draggable="false" width="30%">
 
-				<f:event listener="#{FabricanteMB.listarFabricante}"
-					type="preRenderView"></f:event>
 
-				<p:dataTable id="fabricante" var="fab"
-					value="#{FabricanteMB.listaFabricantes}">
-
-					<p:column headerText="Fabricante">
-						<h:outputText value="#{fab.descricao}" />
-					</p:column>
-					<p:column headerText="Selecionar"
-						style="width:20$;text-align:center">
-
-						<p:commandButton onclick="PF('dlgFabricante').hide();"
-							icon="pi pi-check-circle" title="Selecionar"
-							actionListener="#{FabricanteMB.buscarFabricanteCodigo(fab.idfabricante)}"></p:commandButton>
-
-					</p:column>
-
-				</p:dataTable>
-
+			<p:dialog widgetVar="dlgEdi" id="edipro" header="Edição de Produto"
+				modal="true" appendTo="@(body)" resizable="false" draggable="false"
+				width="30%">
+				<h:form id="proEditar">
+					<h:panelGrid id="pnlEditar" columns="2" cellpadding="5"
+						width="100%">
+						<h:outputLabel value="Código" />
+						<p:inputText disabled="true" id="id" value="#{produtoMB.produtoEntity.idproduto}" style="width:30%" />
+						<h:outputLabel value="Nome:" />
+						<p:inputText id="desc"
+							value="#{produtoMB.produtoEntity.descricao}" required="true"
+							style="wdth:100%;">
+						</p:inputText>
+						<h:outputLabel value="Valor:" />
+						<p:inputNumber id="preco" symbol="R$ "
+							value="#{produtoMB.produtoEntity.valor}" required="true"
+							style="wdth:100%;">
+						</p:inputNumber>
+						<h:outputLabel value="Qtde:" />
+						<p:inputText id="qtde"
+							value="#{produtoMB.produtoEntity.quantidade}" required="true"
+							style="wdth:100%;">
+						</p:inputText>
+						<h:outputLabel value="Usuário:" />
+						<p:inputText value="#{usuarioMB.usuarioLogado.nome}"
+							disabled="true" style="wdth:100%;">
+						</p:inputText>
+					</h:panelGrid>
+					<h:panelGrid id="pnlBuscaEdi" columns="5" cellpadding="5"
+						width="100%">
+						<h:outputLabel value="Fabricante:" />
+						<p:inputText value="#{FabricanteMB.fabricanteEntity.descricao}"
+							disabled="true" style="wdth:100%;">
+						</p:inputText>
+						<p:commandButton onclick="PF('dlgFabricante').show();" icon="pi pi-search"></p:commandButton>
+					</h:panelGrid>
+					<h:panelGrid>
+						<f:facet name="footer">
+							<p:commandButton value="Gravar edição" icon="pi pi-save" onclick="PF('dlgEdi').hide();"							
+							actionListener="#{produtoMB.editarProduto(FabricanteMB.fabricanteEntity)}"
+							update=":form:produto :proEditar:pnlEditar :proEditar:pnlBuscaEdi :growl"
+							/>
+						</f:facet>
+					</h:panelGrid>
+				</h:form>
+			</p:dialog>
+			
+			<p:dialog widgetVar="dlgFabricante" id="buscaFab" header="Fabricantes" modal="true" appendTo="@(body)" resizable="false" draggable="false" width="30%">
+			<f:event listener="#{FabricanteMB.listarFabricante}" type="preRenderView"></f:event>
+			
+			<p:dataTable id="fabricante" var="fab" value="#{FabricanteMB.listaFabricantes}">
+				<p:column headerText="Fabricante">
+					<h:outputText value="#{fab.descricao}"/>
+				</p:column>
+				<p:column headerText="Selecionar" style="width:20%;text-align:center">
+					<p:commandButton icon="pi pi-check-circle" title="Selecionar" 
+					onclick="PF('dlgFabricante').hide();"
+					actionListener="#{FabricanteMB.buscarFabricanteCodigo(fab.idfabricante)}"
+					update=":proCadastro:pnlBusca :proEditar:pnlBuscaEdi"/>				
+				</p:column>
+			</p:dataTable>
+			
 			</p:dialog>
 
-		</h:form>
 	</ui:define>
+
 </ui:composition>
+
+
 
 </html>

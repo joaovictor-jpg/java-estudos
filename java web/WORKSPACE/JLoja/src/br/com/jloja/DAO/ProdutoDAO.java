@@ -10,89 +10,95 @@ import br.com.jloja.entity.ProdutoEntity;
 import br.com.jloja.util.HibernateUtil;
 
 public class ProdutoDAO {
-
+	
 	public void adicionar(ProdutoEntity produto) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
+
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
 
 		try {
-			transaction = session.beginTransaction();
-			session.persist(produto);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
+			transacao = sessao.beginTransaction();
+			sessao.persist(produto);
+			transacao.commit();
+		} catch (Exception ex) {
+			if (transacao != null) {
+				transacao.rollback();
 			}
 		} finally {
-			session.close();
+			sessao.close();
 		}
 	}
-
+	
+	
 	public void editar(ProdutoEntity produto) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
+
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
 
 		try {
-			transaction = session.beginTransaction();
-			session.merge(produto);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
+			transacao = sessao.beginTransaction();
+			sessao.merge(produto);
+			transacao.commit();
+		} catch (Exception ex) {
+			if (transacao != null) {
+				transacao.rollback();
 			}
 		} finally {
-			session.close();
+			sessao.close();
 		}
-
 	}
-
+	
 	public void excluir(ProdutoEntity produto) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
-		Transaction transaction = null;
+
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
+		Transaction transacao = null;
 
 		try {
-			transaction = session.beginTransaction();
-			session.remove(produto);
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null) {
-				transaction.rollback();
+			transacao = sessao.beginTransaction();
+			sessao.remove(produto);
+			transacao.commit();
+		} catch (Exception ex) {
+			if (transacao != null) {
+				transacao.rollback();
 			}
 		} finally {
-			session.close();
+			sessao.close();
 		}
 	}
 
-	public ProdutoEntity buscarProdutoPorCodigo(Long id) {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	public ProdutoEntity buscarPorCodigo(Long codigo) {
+
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		ProdutoEntity produto = null;
 
 		try {
-			Query<ProdutoEntity> consulta = session.createNamedQuery("ProdutoEntity.buscarPorCodigo",
+			Query<ProdutoEntity> consulta = sessao.createNamedQuery("ProdutoEntity.buscarPorCodigo",
 					ProdutoEntity.class);
-			consulta.setParameter("codigo", id);
+			consulta.setParameter("codigo", codigo);
 			produto = (ProdutoEntity) consulta.uniqueResult();
-		} catch (Exception e) {
-			throw e;
+
+		} catch (Exception ex) {
+			throw ex;
 		} finally {
-			session.close();
+			sessao.close();
 		}
+
 		return produto;
 	}
-
-	public List<ProdutoEntity> listar() {
-		Session session = HibernateUtil.getSessionFactory().openSession();
+	
+	public List<ProdutoEntity> listar(){
+		Session sessao = HibernateUtil.getSessionFactory().openSession();
 		List<ProdutoEntity> produtos = null;
-
+		
 		try {
-			Query<ProdutoEntity> consulta = session.createNamedQuery("ProdutoEntity.listar", ProdutoEntity.class);
+			Query<ProdutoEntity> consulta = sessao.createNamedQuery("ProdutoEntity.listar", ProdutoEntity.class);	
 			produtos = consulta.list();
-		} catch (Exception e) {
-			throw e;
-		} finally {
-			session.close();
+		} catch (RuntimeException ex) {
+			throw ex;
+		}finally {
+			sessao.close();
 		}
-		return produtos;
+		return produtos;		
 	}
 
 }

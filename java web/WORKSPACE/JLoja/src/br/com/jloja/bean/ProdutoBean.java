@@ -14,104 +14,100 @@ import br.com.jloja.util.MsgUtil;
 @ManagedBean(name = "produtoMB")
 @SessionScoped
 public class ProdutoBean {
-
-	private List<ProdutoEntity> listarProdutos;
-	private List<ProdutoEntity> listarProdutosFiltrados;
+	
+	private List<ProdutoEntity> listaProdutos;
+	private List<ProdutoEntity> listaProdutosFiltrados;
 	private ProdutoEntity produtoEntity;
 	private Long codigo;
-
-	public List<ProdutoEntity> getListarProdutos() {
-		return listarProdutos;
+	public List<ProdutoEntity> getListaProdutos() {
+		return listaProdutos;
 	}
-
-	public void setListarProdutos(List<ProdutoEntity> listarProdutos) {
-		this.listarProdutos = listarProdutos;
+	public void setListaProdutos(List<ProdutoEntity> listaProdutos) {
+		this.listaProdutos = listaProdutos;
 	}
-
-	public List<ProdutoEntity> getListarProdutosFiltrados() {
-		return listarProdutosFiltrados;
+	public List<ProdutoEntity> getListaProdutosFiltrados() {
+		return listaProdutosFiltrados;
 	}
-
-	public void setListarProdutosFiltrados(List<ProdutoEntity> listarProdutosFiltrados) {
-		this.listarProdutosFiltrados = listarProdutosFiltrados;
+	public void setListaProdutosFiltrados(List<ProdutoEntity> listaProdutosFiltrados) {
+		this.listaProdutosFiltrados = listaProdutosFiltrados;
 	}
-
 	public ProdutoEntity getProdutoEntity() {
 		return produtoEntity;
 	}
-
 	public void setProdutoEntity(ProdutoEntity produtoEntity) {
 		this.produtoEntity = produtoEntity;
 	}
-
 	public Long getCodigo() {
 		return codigo;
 	}
-
 	public void setCodigo(Long codigo) {
 		this.codigo = codigo;
 	}
-
+	
 	public ProdutoBean() {
 		this.produtoEntity = new ProdutoEntity();
 	}
-
+	
 	public void listarProduto() {
 		try {
-			ProdutoDAO dao = new ProdutoDAO();
-			listarProdutos = dao.listar();
-		} catch (Exception e) {
-			throw e;
+			ProdutoDAO proDAO = new ProdutoDAO();
+			listaProdutos = proDAO.listar();
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
-
-	public void adicionarProduto(UsuarioEntity usuario, FabricanteEntity fabricante) {
+	
+	public void adicionarProduto(UsuarioEntity user, FabricanteEntity fab) {
 		try {
-			produtoEntity.setUsuario_idusuario(usuario);
-			produtoEntity.setFabricante_idfabricante(fabricante);
-
-			ProdutoDAO dao = new ProdutoDAO();
-			dao.adicionar(produtoEntity);
+			produtoEntity.setUsuario_idusuario(user);
+			produtoEntity.setFabricante_idfabricante(fab);
+			
+			ProdutoDAO prodao = new ProdutoDAO();
+			prodao.adicionar(produtoEntity);
+			
 			produtoEntity = new ProdutoEntity();
-
-			MsgUtil.msgInfo("Produto gravado com sucesso!");
-		} catch (Exception e) {
-			MsgUtil.msgError("Erro ao gravar produto: " + e.getMessage());
+			
+			MsgUtil.msgInfo("Produto gravado com Sucesso!");
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao gravar produto: " + ex.getMessage());
 		}
 	}
-
-	public void buscarProdudtoCodigo(Long codigo) {
+	
+	public void buscarProdutoCodigo(Long codigo) {
 		try {
-			ProdutoDAO dao = new ProdutoDAO();
-			produtoEntity = dao.buscarProdutoPorCodigo(codigo);
-		} catch (Exception e) {
-			throw e;
+			ProdutoDAO proDAO = new ProdutoDAO();
+			produtoEntity = proDAO.buscarPorCodigo(codigo);			
+		} catch (Exception ex) {
+			throw ex;
 		}
 	}
-
+	
 	public void editarProduto(FabricanteEntity fab) {
 		try {
+			
 			produtoEntity.setFabricante_idfabricante(fab);
-			ProdutoDAO dao = new ProdutoDAO();
-
-			dao.adicionar(produtoEntity);
-
+			
+			ProdutoDAO prodao = new ProdutoDAO();
+			prodao.editar(produtoEntity);
+			
 			produtoEntity = new ProdutoEntity();
-			MsgUtil.msgInfo("Produto editado com sucesso!");
-		} catch (Exception e) {
-			MsgUtil.msgError("Erro ao tentar editar um produto: " + e.getMessage());
+			
+			MsgUtil.msgInfo("Produto editado com Sucesso!");
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao tentar editar um produto: " + ex.getMessage());
 		}
 	}
-
+	
 	public void excluirProduto() {
 		try {
-			ProdutoDAO dao = new ProdutoDAO();
-			dao.excluir(produtoEntity);
+			ProdutoDAO prodao = new ProdutoDAO();
+			prodao.excluir(produtoEntity);
 			produtoEntity = new ProdutoEntity();
-			MsgUtil.msgInfo("Produto excluído com sucesso!");
-		} catch (Exception e) {
-			MsgUtil.msgError("Erro ao excluír produto: " + e.getMessage());
+			MsgUtil.msgInfo("Produto excluído com Sucesso!");
+		} catch (Exception ex) {
+			MsgUtil.msgError("Erro ao tentar excluir produto: " + ex.getMessage());
 		}
+		
 	}
 
 }
