@@ -1,19 +1,19 @@
 import br.com.joao.screenmetch.modelos.Filme;
+import br.com.joao.spotify.modelos.Audio;
+import br.com.joao.spotify.modelos.Musica;
+import br.com.joao.spotify.modelos.PodCast;
 
 public class Main {
     public static void main(String[] args) {
-        Filme meuFilme = new Filme();
-        meuFilme.setNome("O meu poderoso chefão");
-        meuFilme.setAnoDelancamento(1970);
-        meuFilme.setDuracaoEmMinutos(180);
+        Audio audioPodCast = new PodCast();
+        audioPodCast.setTitulo("PostTech");
+        audioPodCast.curtida();
+        audioPodCast.reproduzir();
 
-        meuFilme.exibirFichaTecnica();
-
-        meuFilme.avalia(8);
-        meuFilme.avalia(5);
-        meuFilme.avalia(10);
-        System.out.println("Total de avaliações: " + meuFilme.getTotalDeAvaliacoes());
-        System.out.println(meuFilme.pegaMedia());
-
+        Musica musica = new Musica();
+        musica.setTitulo("Bolier room");
+        musica.setArtista("DJ Ramon");
+        musica.setGenero("Funk");
+        musica.som();
     }
 }
