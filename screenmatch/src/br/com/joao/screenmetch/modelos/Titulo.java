@@ -1,12 +1,20 @@
 package br.com.joao.screenmetch.modelos;
 
-public class Titulos {
+public class Titulo {
     private String nome;
     private int anoDelancamento;
     private boolean incluidoNoPlano;
     private double somaDasAvaliacoes;
     private int totalDeAvaliacoes;
     private int duracaoEmMinutos;
+
+    public Titulo() {
+    }
+
+    public Titulo(String nome, int anoDelancamento) {
+        this.nome = nome;
+        this.anoDelancamento = anoDelancamento;
+    }
 
     public String getNome() {
         return nome;
@@ -26,14 +34,6 @@ public class Titulos {
 
     public int getTotalDeAvaliacoes() {
         return this.totalDeAvaliacoes;
-    }
-
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
-    public void setAnoDelancamento(int anoDelancamento) {
-        this.anoDelancamento = anoDelancamento;
     }
 
     public void setDuracaoEmMinutos(int duracaoEmMinutos) {

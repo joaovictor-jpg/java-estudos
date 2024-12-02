@@ -2,8 +2,12 @@ package br.com.joao.screenmetch.modelos;
 
 import br.com.joao.screenmetch.interfaces.Classificavel;
 
-public class Filme extends Titulos implements Classificavel {
+public class Filme extends Titulo implements Classificavel {
     private String diretor;
+
+    public Filme(String nome, int anoDelancamento) {
+        super(nome, anoDelancamento);
+    }
 
     public String getDiretor() {
         return diretor;

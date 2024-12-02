@@ -6,6 +6,10 @@ public class Livro extends Produto implements Calculavel {
     private String titulo;
     private String autor;
 
+    public Livro(String nome, double nota1, double nota2, double nota3, double preco) {
+        super(nome, nota1, nota2, nota3, preco);
+    }
+
     public String getTitulo() {
         return titulo;
     }
