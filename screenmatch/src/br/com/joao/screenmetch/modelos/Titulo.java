@@ -1,6 +1,6 @@
 package br.com.joao.screenmetch.modelos;
 
-public class Titulo {
+public class Titulo implements Comparable<Titulo> {
     private String nome;
     private int anoDelancamento;
     private boolean incluidoNoPlano;
@@ -52,5 +52,10 @@ public class Titulo {
 
     public double pegaMedia() {
         return this.somaDasAvaliacoes / this.totalDeAvaliacoes;
+    }
+
+    @Override
+    public int compareTo(Titulo titulo) {
+        return this.nome.compareTo(titulo.getNome());
     }
 }

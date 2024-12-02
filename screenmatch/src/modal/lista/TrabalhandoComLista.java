@@ -3,6 +3,8 @@ package modal.lista;
 import modal.Produto;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 public class TrabalhandoComLista {
     public static void main(String[] args) {
@@ -14,6 +16,16 @@ public class TrabalhandoComLista {
         nomes.add("Candida");
 
         nomes.forEach(System.out::println);
+
+        ArrayList<String> buscaPorArtistas = new ArrayList<>();
+
+        buscaPorArtistas.add("Adam Sendler");
+        buscaPorArtistas.add("Paulo");
+        buscaPorArtistas.add("Jacqueline");
+
+        Collections.sort(buscaPorArtistas);
+
+        System.out.println(buscaPorArtistas);
 
         System.out.println("| ------------------------------------------------------------------------------ |");
 
@@ -32,6 +44,17 @@ public class TrabalhandoComLista {
         double media = somaValor / produtos.size();
 
         System.out.println(String.format("A média é: %.2f", media));
+
+        System.out.println("| ----------------------------------------------------------------------------------------- |");
+
+        List<Integer> listInt = new ArrayList<>();
+        listInt.add(3);
+        listInt.add(4);
+        listInt.add(6);
+        listInt.add(7);
+        listInt.add(9);
+        Collections.sort(listInt);
+        System.out.println(listInt);
 
     }
 }

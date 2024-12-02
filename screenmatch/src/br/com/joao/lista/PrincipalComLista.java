@@ -5,6 +5,9 @@ import br.com.joao.screenmetch.modelos.Serie;
 import br.com.joao.screenmetch.modelos.Titulo;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class PrincipalComLista {
     public static void main(String[] args) {
@@ -16,7 +19,7 @@ public class PrincipalComLista {
         filme3.avalia(6);
         Serie lost = new Serie("Lost", 2000);
 
-        ArrayList<Titulo> lista = new ArrayList<>();
+        List<Titulo> lista = new ArrayList<>();
         lista.add(filme1);
         lista.add(filme2);
         lista.add(filme3);
@@ -29,5 +32,11 @@ public class PrincipalComLista {
                 System.out.println(filme.getClassificacao());
             }
         }
+
+        Collections.sort(lista);
+        System.out.println(lista);
+
+        lista.sort(Comparator.comparing(Titulo::getAnoDelancamento));
+        System.out.println(lista);
     }
 }
