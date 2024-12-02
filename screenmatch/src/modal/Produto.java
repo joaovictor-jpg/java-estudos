@@ -5,6 +5,7 @@ public class Produto {
     private double nota1;
     private double nota2;
     private double nota3;
+    protected double preco;
 
     public String getNome() {
         return nome;

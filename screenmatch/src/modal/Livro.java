@@ -1,6 +1,8 @@
 package modal;
 
-public class Livro {
+import modal.interfaces.Calculavel;
+
+public class Livro extends Produto implements Calculavel {
     private String titulo;
     private String autor;
 
@@ -23,5 +25,9 @@ public class Livro {
     public void exibirDetalhes() {
         System.out.println("Título: " + titulo);
         System.out.println("Autor: " + autor);
+    }
+
+    public double calcularPrecoFinal() {
+        return preco * 0.9;
     }
 }
