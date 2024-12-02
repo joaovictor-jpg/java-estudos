@@ -4,7 +4,7 @@ public class ContaBancaria {
 
     private String titular;
     private int numeroConta;
-    private double saldo;
+    protected double saldo;
 
     public String getTitular() {
         return titular;
@@ -26,7 +26,16 @@ public class ContaBancaria {
         return saldo;
     }
 
-    public void setSaldo(double saldo) {
-        this.saldo = saldo;
+    public void deposita(double saldo) {
+        this.saldo += saldo;
+    }
+
+    public double sacar(double sacar) {
+        if (this.saldo > sacar) {
+            this.saldo -= sacar;
+        } else {
+            System.out.println("Saldo insuficente");
+        }
+        return saldo;
     }
 }
