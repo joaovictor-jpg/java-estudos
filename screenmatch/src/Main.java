@@ -1,19 +1,31 @@
 import br.com.joao.screenmetch.modelos.Filme;
-import br.com.joao.spotify.modelos.Audio;
-import br.com.joao.spotify.modelos.Musica;
-import br.com.joao.spotify.modelos.PodCast;
+import modal.Pessoa;
+
+import java.util.ArrayList;
 
 public class Main {
     public static void main(String[] args) {
-        Audio audioPodCast = new PodCast();
-        audioPodCast.setTitulo("PostTech");
-        audioPodCast.curtida();
-        audioPodCast.reproduzir();
+        ArrayList<Filme> listaDeFilmes = new ArrayList<>();
 
-        Musica musica = new Musica();
-        musica.setTitulo("Bolier room");
-        musica.setArtista("DJ Ramon");
-        musica.setGenero("Funk");
-        musica.som();
+        Filme filme = new Filme();
+        filme.setNome("Homem Aranha");
+        filme.setAnoDelancamento(2003);
+        filme.setDiretor("João");
+        filme.setDuracaoEmMinutos(190);
+
+        listaDeFilmes.add(filme);
+        System.out.println("Tamanho da lista: " + listaDeFilmes.size());
+        System.out.println("Primeiro filme: " + listaDeFilmes.get(0).toString());
+
+        System.out.println("| ------------------------------------------------------------ |");
+
+        ArrayList<Pessoa> pessoas = new ArrayList<>();
+
+        pessoas.add(new Pessoa("João Victor", 24));
+        pessoas.add(new Pessoa("André", 54));
+
+        System.out.println(pessoas.size());
+        System.out.println(pessoas.get(0).toString());
+        System.out.println(pessoas);
     }
 }
