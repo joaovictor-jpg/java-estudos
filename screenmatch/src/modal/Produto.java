@@ -51,6 +51,10 @@ public class Produto {
         return (nota1 + nota2 + nota3) / 3;
     }
 
+    public double getPreco() {
+        return preco;
+    }
+
     @Override
     public String toString() {
         return "Produto{" +
