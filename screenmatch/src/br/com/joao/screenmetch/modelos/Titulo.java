@@ -1,5 +1,7 @@
 package br.com.joao.screenmetch.modelos;
 
+import com.google.gson.annotations.SerializedName;
+
 public class Titulo implements Comparable<Titulo> {
     private String nome;
     private int anoDelancamento;
@@ -14,6 +16,12 @@ public class Titulo implements Comparable<Titulo> {
     public Titulo(String nome, int anoDelancamento) {
         this.nome = nome;
         this.anoDelancamento = anoDelancamento;
+    }
+
+    public Titulo(TituloOmdb meuTituloOmdb) {
+        this.nome = meuTituloOmdb.title();
+        this.anoDelancamento = Integer.valueOf(meuTituloOmdb.year());
+        this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0, 3));
     }
 
     public String getNome() {
@@ -57,5 +65,14 @@ public class Titulo implements Comparable<Titulo> {
     @Override
     public int compareTo(Titulo titulo) {
         return this.nome.compareTo(titulo.getNome());
+    }
+
+    @Override
+    public String toString() {
+        return "Titulo {" +
+                "nome='" + nome + '\'' +
+                ", anoDelancamento=" + anoDelancamento +
+                ", duracaoEmMinutos=" + duracaoEmMinutos +
+                '}';
     }
 }

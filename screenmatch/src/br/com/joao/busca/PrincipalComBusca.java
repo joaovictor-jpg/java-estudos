@@ -1,5 +1,11 @@
 package br.com.joao.busca;
 
+import br.com.joao.screenmetch.modelos.Titulo;
+import br.com.joao.screenmetch.modelos.TituloOmdb;
+import com.google.gson.FieldNamingPolicy;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.IOException;
 import java.net.URI;
 import java.net.http.HttpClient;
@@ -23,5 +29,12 @@ public class PrincipalComBusca {
                 .send(request, HttpResponse.BodyHandlers.ofString());
 
         System.out.println(response.body());
+
+        Gson gson = new GsonBuilder().setFieldNamingPolicy(FieldNamingPolicy.UPPER_CAMEL_CASE).create();
+        TituloOmdb meuTituloOmdb = gson.fromJson(response.body(), TituloOmdb.class);
+        System.out.println(meuTituloOmdb);
+        Titulo meuTitulo = new Titulo(meuTituloOmdb);
+        System.out.println(meuTitulo);
+
     }
 }
