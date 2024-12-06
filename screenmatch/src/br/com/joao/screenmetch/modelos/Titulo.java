@@ -1,5 +1,6 @@
 package br.com.joao.screenmetch.modelos;
 
+import br.com.joao.screenmetch.excecao.ErroDeConversaoDeAnoException;
 import com.google.gson.annotations.SerializedName;
 
 public class Titulo implements Comparable<Titulo> {
@@ -20,6 +21,9 @@ public class Titulo implements Comparable<Titulo> {
 
     public Titulo(TituloOmdb meuTituloOmdb) {
         this.nome = meuTituloOmdb.title();
+        if (meuTituloOmdb.year().length() > 4 ){
+            throw new ErroDeConversaoDeAnoException("Não consegui converte o ano, porque tem mais de 04 caracter");
+        }
         this.anoDelancamento = Integer.valueOf(meuTituloOmdb.year());
         this.duracaoEmMinutos = Integer.valueOf(meuTituloOmdb.runtime().substring(0, 3));
     }
