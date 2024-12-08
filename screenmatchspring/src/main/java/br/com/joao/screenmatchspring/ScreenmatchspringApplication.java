@@ -1,9 +1,13 @@
 package br.com.joao.screenmatchspring;
 
+import br.com.joao.screenmatchspring.model.Serie;
+import br.com.joao.screenmatchspring.service.ConverteDados;
 import br.com.joao.screenmatchspring.service.ObterDadosSerce;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import java.io.Serial;
 
 @SpringBootApplication
 public class ScreenmatchspringApplication implements CommandLineRunner {
@@ -15,6 +19,9 @@ public class ScreenmatchspringApplication implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
         var consumeApi = ObterDadosSerce.obterDados("http://www.omdbapi.com/?apikey=7d410bf0&t=the+boys");
-        System.out.println(consumeApi);
+
+        ConverteDados converso = new ConverteDados();
+        var dados = converso.obterDados(consumeApi, Serie.class);
+        System.out.println(dados);
     }
 }
