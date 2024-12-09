@@ -1,13 +1,9 @@
 package br.com.joao.screenmatchspring;
 
-import br.com.joao.screenmatchspring.model.Serie;
-import br.com.joao.screenmatchspring.service.ConverteDados;
-import br.com.joao.screenmatchspring.service.ObterDadosSerce;
+import br.com.joao.screenmatchspring.principal.Principal;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-
-import java.io.Serial;
 
 @SpringBootApplication
 public class ScreenmatchspringApplication implements CommandLineRunner {
@@ -18,10 +14,22 @@ public class ScreenmatchspringApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) throws Exception {
-        var consumeApi = ObterDadosSerce.obterDados("http://www.omdbapi.com/?apikey=7d410bf0&t=the+boys");
 
-        ConverteDados converso = new ConverteDados();
-        var dados = converso.obterDados(consumeApi, Serie.class);
-        System.out.println(dados);
+        Principal principal = new Principal();
+        principal.exibMenu();
+
+//        var consumioTemporada = ObterDadosSerce.obterDadosSerie("https://www.omdbapi.com/?apikey=7d410bf0&t=the+boys&season=1");
+//
+//        var temporada = converso.obterDados(consumioTemporada, Temporada.class);
+//        System.out.println(temporada);
+
+//        List<Temporada> temporadas = new ArrayList<>();
+//
+//        for (int i = 1; i < serie.totalTemporada(); i++) {
+//            var consumindoTemporada = ObterDadosSerce.obterDadosSerie("https://www.omdbapi.com/?apikey=7d410bf0&t=the+boys&season=" + i);
+//            temporadas.add(converso.obterDados(consumindoTemporada, Temporada.class));
+//        }
+//
+//        temporadas.forEach(System.out::println);
     }
 }

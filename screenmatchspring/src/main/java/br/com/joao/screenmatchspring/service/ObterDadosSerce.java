@@ -7,10 +7,10 @@ import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
 public class ObterDadosSerce {
-    public static String obterDados(String enderco) {
+    public static String obterDadosSerie(String endereco) {
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(enderco))
+                .uri(URI.create(endereco))
                 .build();
         HttpResponse<String> response = null;
         try {
