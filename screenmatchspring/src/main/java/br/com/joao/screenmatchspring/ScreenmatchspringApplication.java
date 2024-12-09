@@ -5,6 +5,10 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 @SpringBootApplication
 public class ScreenmatchspringApplication implements CommandLineRunner {
 
@@ -31,5 +35,10 @@ public class ScreenmatchspringApplication implements CommandLineRunner {
 //        }
 //
 //        temporadas.forEach(System.out::println);
+
+//        List<String> nomeInstrutor = Arrays.asList("Jacque", "Iasmin", "Paulo", "Nico");
+//
+//        nomeInstrutor.stream().sorted().limit(3).filter(n -> n.startsWith("I"))
+//                .map(n -> n.toUpperCase()).forEach(System.out::println);
     }
 }
