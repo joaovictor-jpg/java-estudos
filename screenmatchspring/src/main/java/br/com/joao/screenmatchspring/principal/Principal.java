@@ -1,15 +1,15 @@
 package br.com.joao.screenmatchspring.principal;
 
-import br.com.joao.screenmatchspring.model.DadosEpisodio;
-import br.com.joao.screenmatchspring.model.Episodio;
+import br.com.joao.screenmatchspring.model.DadosSerie;
 import br.com.joao.screenmatchspring.model.Serie;
 import br.com.joao.screenmatchspring.model.Temporada;
 import br.com.joao.screenmatchspring.service.ConverteDados;
 import br.com.joao.screenmatchspring.service.ObterDadosSerce;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.Scanner;
 import java.util.stream.Collectors;
 
 public class Principal {
@@ -18,31 +18,10 @@ public class Principal {
     private final String API_KEY = "apikey=7d410bf0&t=";
     private final String SEASON = "&season=";
     private ConverteDados converso = new ConverteDados();
+    private List<DadosSerie> dadosSerie = new ArrayList<>();
 
     public void exibMenu() {
-        var menu = """
-                1 - Buscar série
-                2 - Buscar episódio
-                0 - Sair
-                """;
-
-        System.out.println(menu);
-        var opcoes = scanner.nextLine();
-        scanner.nextLine();
-
-        switch (opcoes) {
-            case 1:
-                buscarSerieWeb();
-                break;
-            case 2:
-                buscarEpisodioPorSerie();
-                break;
-            case 0:
-                System.out.println("Saindo...");
-                break;
-            default:
-                System.out.println("Opção inválida");
-        }
+        menu();
 //        System.out.println("Digite o nome da série a busca");
 //        var nomeSerie = scanner.nextLine();
 //        var json = ObterDadosSerce.obterDadosSerie(ENDERECO + API_KEY + nomeSerie.replace(" ", "+"));
@@ -142,20 +121,33 @@ public class Principal {
     }
 
     private void buscarSerieWeb() {
-        Serie dados = getDadosSerie();
+        DadosSerie dados = getDadosSerie();
+        dadosSerie.add(dados);
         System.out.println(dados);
     }
 
-    private Serie getDadosSerie() {
+    private DadosSerie getDadosSerie() {
         System.out.println("Digite o nome da série para busca");
         var nomeSerie = scanner.nextLine();
         var json = ObterDadosSerce.obterDadosSerie(ENDERECO + API_KEY + nomeSerie.replace(" ", "+"));
-        Serie dados = converso.obterDados(json, Serie.class);
+        DadosSerie dados = converso.obterDados(json, DadosSerie.class);
         return dados;
     }
 
-    public void buscarEpisodioPorSerie() {
-        Serie dadosSerie = getDadosSerie();
+    private void listarSeriesBuscaDas() {
+        List<Serie> series = new ArrayList<>();
+        series = dadosSerie
+                .stream()
+                .map(Serie::new)
+                .toList();
+
+        series.stream()
+                .sorted(Comparator.comparing(Serie::getGenero))
+                .forEach(System.out::println);
+    }
+
+    private void buscarEpisodioPorSerie() {
+        DadosSerie dadosSerie = getDadosSerie();
         List<Temporada> temporadas = new ArrayList<>();
 
         for (int i = 1; i < dadosSerie.totalTemporada(); i++) {
@@ -164,6 +156,40 @@ public class Principal {
             temporadas.add(dadosTempora);
         }
         temporadas.forEach(System.out::println);
+    }
+
+    private void menu() {
+        var opcoes = -1;
+        while (opcoes != 0) {
+            var menu = """
+                    1 - Buscar série
+                    2 - Buscar episódio
+                    3 - Listar séries buscadas
+                    0 - Sair
+                    """;
+
+            System.out.println(menu);
+            opcoes = scanner.nextInt();
+            scanner.nextLine();
+
+            switch (opcoes) {
+                case 1:
+                    buscarSerieWeb();
+                    break;
+                case 2:
+                    buscarEpisodioPorSerie();
+                    break;
+                case 3:
+                    listarSeriesBuscaDas();
+                    break;
+                case 0:
+                    System.out.println("Saindo...");
+                    break;
+                default:
+                    System.out.println("Opção inválida");
+            }
+        }
+
     }
 
 }
