@@ -1,14 +1,32 @@
 package br.com.joao.screenmatchspring.model;
 
+import jakarta.persistence.*;
+import org.hibernate.annotations.ManyToAny;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 
+@Entity()
+@Table(name = "episodios")
 public class Episodio {
+    @Id()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(unique = true)
     private String titulo;
+    @Column()
     private Integer temporada;
+    @Column()
     private Integer numeroEpisodio;
+    @Column()
     private Double avaliacao;
+    @Column()
     private LocalDate dataLancamento;
+    @ManyToOne()
+    private Serie serie;
+
+    public Episodio() {
+    }
 
     public Episodio(Integer temporada, DadosEpisodio d) {
         this.titulo = d.titulo();
@@ -24,6 +42,14 @@ public class Episodio {
         } catch (DateTimeParseException ex) {
             this.dataLancamento = null;
         }
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getTitulo() {
@@ -64,6 +90,14 @@ public class Episodio {
 
     public void setDataLancamento(LocalDate dataLancamento) {
         this.dataLancamento = dataLancamento;
+    }
+
+    public Serie getSerie() {
+        return serie;
+    }
+
+    public void setSerie(Serie serie) {
+        this.serie = serie;
     }
 
     @Override
