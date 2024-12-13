@@ -3,6 +3,7 @@ package br.com.joao.screenmatchspring.principal;
 import br.com.joao.screenmatchspring.model.DadosSerie;
 import br.com.joao.screenmatchspring.model.Serie;
 import br.com.joao.screenmatchspring.model.Temporada;
+import br.com.joao.screenmatchspring.respository.SerieRepository;
 import br.com.joao.screenmatchspring.service.ConverteDados;
 import br.com.joao.screenmatchspring.service.ObterDadosSerce;
 
@@ -19,6 +20,12 @@ public class Principal {
     private final String SEASON = "&season=";
     private ConverteDados converso = new ConverteDados();
     private List<DadosSerie> dadosSerie = new ArrayList<>();
+
+    private SerieRepository serieRepository;
+
+    public Principal(SerieRepository serieRepository) {
+        this.serieRepository = serieRepository;
+    }
 
     public void exibMenu() {
         menu();
@@ -122,7 +129,8 @@ public class Principal {
 
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
-        dadosSerie.add(dados);
+//        dadosSerie.add(dados);
+        serieRepository.save(new Serie(dados));
         System.out.println(dados);
     }
 
@@ -135,11 +143,7 @@ public class Principal {
     }
 
     private void listarSeriesBuscaDas() {
-        List<Serie> series = new ArrayList<>();
-        series = dadosSerie
-                .stream()
-                .map(Serie::new)
-                .toList();
+        List<Serie> series = serieRepository.findAll();
 
         series.stream()
                 .sorted(Comparator.comparing(Serie::getGenero))
