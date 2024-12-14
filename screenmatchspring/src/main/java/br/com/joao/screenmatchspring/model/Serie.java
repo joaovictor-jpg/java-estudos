@@ -25,7 +25,7 @@ public class Serie {
     @Column()
     private String sinopse;
     @Column()
-    private String Atores;
+    private String atores;
     @Column()
     @Enumerated(EnumType.STRING)
     private Categoria genero;
@@ -41,7 +41,7 @@ public class Serie {
         this.avaliacao = OptionalDouble.of(Double.valueOf(dadosSerie.avaliacao())).orElse(0);
         this.poster = dadosSerie.poster();
         this.sinopse = ConsultaMyMemory.obterTraducao(dadosSerie.sinopse().trim());
-        this.Atores = dadosSerie.atores();
+        this.atores = dadosSerie.atores();
         this.genero = Categoria.fromString(dadosSerie.genero().split(",")[0].trim());
     }
 
@@ -94,11 +94,11 @@ public class Serie {
     }
 
     public String getAtores() {
-        return Atores;
+        return atores;
     }
 
     public void setAtores(String atores) {
-        Atores = atores;
+        this.atores = atores;
     }
 
     public Categoria getGenero() {
@@ -122,7 +122,7 @@ public class Serie {
     public String toString() {
         return "Serie {" +
                 "genero=" + genero +
-                ", Atores='" + Atores + '\'' +
+                ", Atores='" + atores + '\'' +
                 ", sinopse='" + sinopse + '\'' +
                 ", poster=" + poster +
                 ", avaliacao=" + avaliacao +

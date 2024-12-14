@@ -4,6 +4,7 @@ import br.com.joao.screenmatchspring.model.DadosSerie;
 import br.com.joao.screenmatchspring.model.Episodio;
 import br.com.joao.screenmatchspring.model.Serie;
 import br.com.joao.screenmatchspring.model.Temporada;
+import br.com.joao.screenmatchspring.model.enums.Categoria;
 import br.com.joao.screenmatchspring.respository.SerieRepository;
 import br.com.joao.screenmatchspring.service.ConverteDados;
 import br.com.joao.screenmatchspring.service.ObterDadosSerce;
@@ -126,6 +127,70 @@ public class Principal {
 //        System.out.println("Quantidade: " + est.getCount());
     }
 
+    private void buscarPorTamanhoDeTemporada() {
+        System.out.println("Quantas temporadas? ");
+        int numeroDeTemporadas = scanner.nextInt();
+        System.out.println("Mínimo de avaliação aceita: ");
+        double avaliacao = scanner.nextDouble();
+
+        Optional<List<Serie>> seriesOptional = serieRepository.findByTotalTemporadaLessThanEqualAndAvaliacaoGreaterThanEqual(numeroDeTemporadas, avaliacao);
+
+        seriesOptional.stream().forEach(
+                s -> s.forEach(System.out::println)
+        );
+    }
+
+    private void bustaTopCincoSeries() {
+        Optional<List<Serie>> serieOptional = serieRepository.findTop5ByOrderByAvaliacaoDesc();
+        serieOptional.stream().forEach(
+                sL -> sL.forEach(System.out::println)
+        );
+    }
+
+    private void buscarSeriePorTitulo() {
+        System.out.println("Escolha uma série pelo nome: ");
+        var nomeSerie = scanner.nextLine();
+        Optional<Serie> serieOptional = serieRepository.findByTituloContainingIgnoreCase(nomeSerie);
+
+        if (serieOptional.isPresent()) {
+            System.out.println("Dados da série: " + serieOptional.get());
+        } else {
+            System.out.println("Série não encontrado");
+        }
+    }
+
+    private void buscarSeriePorAutores() {
+        System.out.println("Entre com o nome do autor");
+        var nomeAutor = scanner.nextLine();
+        System.out.println("Avaliações a partir de que valor? ");
+        var avaliacao = scanner.nextDouble();
+
+        Optional<List<Serie>> serieOptinal = serieRepository.findByAtoresContainingIgnoreCaseAndAvaliacaoGreaterThanEqual(nomeAutor, avaliacao);
+
+        if (serieOptinal.isPresent()) {
+            System.out.println("Série em que " + nomeAutor + " trabalhou:");
+            serieOptinal.stream()
+                    .forEach(s -> {
+                        s.forEach(System.out::println);
+                    });
+        } else {
+            System.out.println("Série não encontrado");
+        }
+    }
+
+    private void buscarSeriePorCategoria() {
+        System.out.println("Digite a categoria");
+        var categoria = scanner.nextLine();
+        Categoria categoria1 = Categoria.fromStringPtBr(categoria);
+        Optional<List<Serie>> seriesOptional = serieRepository.findByGenero(categoria1);
+
+        System.out.println("Série da categoria: " + categoria);
+
+        seriesOptional.ifPresent(
+                e -> e.forEach(System.out::println)
+        );
+    }
+
     private void buscarSerieWeb() {
         DadosSerie dados = getDadosSerie();
 //        dadosSerie.add(dados);
@@ -189,6 +254,11 @@ public class Principal {
                     1 - Buscar série
                     2 - Buscar episódio
                     3 - Listar séries buscadas
+                    4 - Buscar série por título
+                    5 - Buscar série por autor
+                    6 - Top 5 favoritas
+                    7 - Buscar Por categoria
+                    8 - Minimo de Temporadas
                     0 - Sair
                     """;
 
@@ -206,6 +276,20 @@ public class Principal {
                 case 3:
                     listarSeriesBuscaDas();
                     break;
+                case 4:
+                    buscarSeriePorTitulo();
+                    break;
+                case 5:
+                    buscarSeriePorAutores();
+                    break;
+                case 6:
+                    bustaTopCincoSeries();
+                    break;
+                case 7:
+                    buscarSeriePorCategoria();
+                    break;
+                case 8:
+                    buscarPorTamanhoDeTemporada();
                 case 0:
                     System.out.println("Saindo...");
                     break;
