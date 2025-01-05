@@ -13,10 +13,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Comparator;
-import java.util.List;
-import java.util.stream.Collectors;
-
 @RestController
 @RequestMapping("/medicos")
 public class MedicoController {
