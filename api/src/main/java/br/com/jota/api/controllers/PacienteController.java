@@ -1,5 +1,6 @@
 package br.com.jota.api.controllers;
 
+import br.com.jota.api.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
 import br.com.jota.api.paciente.dto_entrada_dados.DadosCadastroPaciente;
 import br.com.jota.api.paciente.dto_saida_dados.DadosListagemPaciente;
 import br.com.jota.api.paciente.entity.Paciente;
@@ -28,6 +29,13 @@ public class PacienteController {
     @GetMapping
     public Page<DadosListagemPaciente> listagem(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
         return repository.findAll(pageable).map(DadosListagemPaciente::new);
+    }
+
+    @PutMapping
+    @Transactional
+    public void atualizarPaciente(@RequestBody DadosAtualizacaoPaciente dados) {
+        Paciente paciente = repository.getReferenceById(dados.id());
+        paciente.atualizadados(dados);
     }
 
 }

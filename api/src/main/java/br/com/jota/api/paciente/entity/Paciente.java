@@ -1,6 +1,7 @@
 package br.com.jota.api.paciente.entity;
 
 import br.com.jota.api.endereco.enitity.Endereco;
+import br.com.jota.api.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
 import br.com.jota.api.paciente.dto_entrada_dados.DadosCadastroPaciente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -54,5 +55,19 @@ public class Paciente {
 
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public void atualizadados(DadosAtualizacaoPaciente dados) {
+
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.dadosEndereco() != null) {
+            this.endereco.atualizarInformacoes(dados.dadosEndereco());
+        }
+
     }
 }
