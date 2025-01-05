@@ -3,9 +3,7 @@ package br.com.jota.api.endereco.enitity;
 import br.com.jota.api.endereco.dto_entrada_dados.DadosEndereco;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
-import lombok.Getter;
 
-@Getter
 @AllArgsConstructor
 @Embeddable
 public class Endereco {
@@ -29,6 +27,34 @@ public class Endereco {
         this.cidade = dados.cidade();
         this.numero = dados.numero();
         this.complemento = dados.complemento();
+    }
+
+    public String getLogradouro() {
+        return logradouro;
+    }
+
+    public String getBairro() {
+        return bairro;
+    }
+
+    public String getCep() {
+        return cep;
+    }
+
+    public String getNumero() {
+        return numero;
+    }
+
+    public String getComplemento() {
+        return complemento;
+    }
+
+    public String getCidade() {
+        return cidade;
+    }
+
+    public String getUf() {
+        return uf;
     }
 
     public void atualizarInformacoes(DadosEndereco dados) {
