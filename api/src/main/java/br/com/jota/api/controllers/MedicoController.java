@@ -1,5 +1,6 @@
 package br.com.jota.api.controllers;
 
+import br.com.jota.api.medico.dto_entrada_dados.DadosAtualizacaoMedico;
 import br.com.jota.api.medico.dto_entrada_dados.DadosCadastroMedico;
 import br.com.jota.api.medico.dto_saida_dados.DadosListagemMedicos;
 import br.com.jota.api.medico.entity.Medico;
@@ -31,8 +32,22 @@ public class MedicoController {
 
     @GetMapping
     public Page<DadosListagemMedicos> listar(@PageableDefault(size = 10, sort = {"nome"}) Pageable pageable) {
-        return repository.findAll(pageable)
+        return repository.findAllByAtivoTrue(pageable)
                 .map(DadosListagemMedicos::new);
     }
 
+    @PutMapping
+    @Transactional
+    public void atualizar(@RequestBody @Valid DadosAtualizacaoMedico dados) {
+        var medico = repository.getReferenceById(dados.id());
+        medico.atualizarInformacoes(dados);
+    }
+
+    @DeleteMapping("/{id}")
+    @Transactional
+    public void excluir(@PathVariable Long id) {
+        var medico = repository.getReferenceById(id);
+
+        medico.excluir();
+    }
 }

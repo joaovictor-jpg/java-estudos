@@ -1,9 +1,11 @@
 package br.com.jota.api.medico.entity;
 
 import br.com.jota.api.endereco.enitity.Endereco;
+import br.com.jota.api.medico.dto_entrada_dados.DadosAtualizacaoMedico;
 import br.com.jota.api.medico.dto_entrada_dados.DadosCadastroMedico;
 import br.com.jota.api.medico.enums.Especialidade;
 import jakarta.persistence.*;
+import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 
@@ -23,6 +25,7 @@ public class Medico {
     private Especialidade especialidade;
     @Embedded
     private Endereco endereco;
+    private boolean ativo;
 
     public Medico(){}
 
@@ -33,6 +36,7 @@ public class Medico {
         this.crm = dados.crm();
         this.especialidade = dados.especialidade();
         this.endereco = new Endereco(dados.endereco());
+        this.ativo = true;
     }
 
     public Long getId() {
@@ -61,5 +65,25 @@ public class Medico {
 
     public Endereco getEndereco() {
         return endereco;
+    }
+
+    public boolean isAtivo() {
+        return ativo;
+    }
+
+    public void atualizarInformacoes(@Valid DadosAtualizacaoMedico dados) {
+        if (dados.nome() != null) {
+            this.nome = dados.nome();
+        }
+        if (dados.telefone() != null) {
+            this.telefone = dados.telefone();
+        }
+        if (dados.dadosEndereco() != null) {
+            this.endereco.atualizarInformacoes(dados.dadosEndereco());
+        }
+    }
+
+    public void excluir() {
+        this.ativo = false;
     }
 }
