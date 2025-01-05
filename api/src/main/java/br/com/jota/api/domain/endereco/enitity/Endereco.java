@@ -1,6 +1,6 @@
-package br.com.jota.api.endereco.enitity;
+package br.com.jota.api.domain.endereco.enitity;
 
-import br.com.jota.api.endereco.dto_entrada_dados.DadosEndereco;
+import br.com.jota.api.domain.endereco.dto_entrada_dados.DadosEndereco;
 import jakarta.persistence.Embeddable;
 import lombok.AllArgsConstructor;
 

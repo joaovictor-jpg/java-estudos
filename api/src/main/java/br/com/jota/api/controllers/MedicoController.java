@@ -1,11 +1,11 @@
 package br.com.jota.api.controllers;
 
-import br.com.jota.api.medico.dto_entrada_dados.DadosAtualizacaoMedico;
-import br.com.jota.api.medico.dto_entrada_dados.DadosCadastroMedico;
-import br.com.jota.api.medico.dto_saida_dados.DadoDetalhamentoMedico;
-import br.com.jota.api.medico.dto_saida_dados.DadosListagemMedicos;
-import br.com.jota.api.medico.entity.Medico;
-import br.com.jota.api.medico.repository.MedicoRepository;
+import br.com.jota.api.domain.medico.dto_entrada_dados.DadosAtualizacaoMedico;
+import br.com.jota.api.domain.medico.dto_entrada_dados.DadosCadastroMedico;
+import br.com.jota.api.domain.medico.dto_saida_dados.DadoDetalhamentoMedico;
+import br.com.jota.api.domain.medico.dto_saida_dados.DadosListagemMedicos;
+import br.com.jota.api.domain.medico.entity.Medico;
+import br.com.jota.api.domain.medico.repository.MedicoRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

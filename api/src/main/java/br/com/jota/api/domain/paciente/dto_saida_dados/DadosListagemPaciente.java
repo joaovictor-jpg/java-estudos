@@ -1,6 +1,6 @@
-package br.com.jota.api.paciente.dto_saida_dados;
+package br.com.jota.api.domain.paciente.dto_saida_dados;
 
-import br.com.jota.api.paciente.entity.Paciente;
+import br.com.jota.api.domain.paciente.entity.Paciente;
 
 public record DadosListagemPaciente(
         Long id,

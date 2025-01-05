@@ -1,4 +1,4 @@
-package br.com.jota.api.endereco.dto_entrada_dados;
+package br.com.jota.api.domain.endereco.dto_entrada_dados;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

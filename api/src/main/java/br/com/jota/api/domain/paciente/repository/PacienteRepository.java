@@ -1,6 +1,6 @@
-package br.com.jota.api.paciente.repository;
+package br.com.jota.api.domain.paciente.repository;
 
-import br.com.jota.api.paciente.entity.Paciente;
+import br.com.jota.api.domain.paciente.entity.Paciente;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;

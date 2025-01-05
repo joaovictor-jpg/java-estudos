@@ -1,9 +1,9 @@
-package br.com.jota.api.medico.entity;
+package br.com.jota.api.domain.medico.entity;
 
-import br.com.jota.api.endereco.enitity.Endereco;
-import br.com.jota.api.medico.dto_entrada_dados.DadosAtualizacaoMedico;
-import br.com.jota.api.medico.dto_entrada_dados.DadosCadastroMedico;
-import br.com.jota.api.medico.enums.Especialidade;
+import br.com.jota.api.domain.endereco.enitity.Endereco;
+import br.com.jota.api.domain.medico.dto_entrada_dados.DadosAtualizacaoMedico;
+import br.com.jota.api.domain.medico.dto_entrada_dados.DadosCadastroMedico;
+import br.com.jota.api.domain.medico.enums.Especialidade;
 import jakarta.persistence.*;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;

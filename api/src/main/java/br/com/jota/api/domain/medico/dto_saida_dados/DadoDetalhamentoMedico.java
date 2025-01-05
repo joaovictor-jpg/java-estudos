@@ -1,8 +1,8 @@
-package br.com.jota.api.medico.dto_saida_dados;
+package br.com.jota.api.domain.medico.dto_saida_dados;
 
-import br.com.jota.api.endereco.enitity.Endereco;
-import br.com.jota.api.medico.entity.Medico;
-import br.com.jota.api.medico.enums.Especialidade;
+import br.com.jota.api.domain.endereco.enitity.Endereco;
+import br.com.jota.api.domain.medico.entity.Medico;
+import br.com.jota.api.domain.medico.enums.Especialidade;
 
 public record DadoDetalhamentoMedico(
         long id,

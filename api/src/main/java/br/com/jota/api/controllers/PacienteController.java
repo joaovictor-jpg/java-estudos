@@ -1,10 +1,10 @@
 package br.com.jota.api.controllers;
 
-import br.com.jota.api.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
-import br.com.jota.api.paciente.dto_entrada_dados.DadosCadastroPaciente;
-import br.com.jota.api.paciente.dto_saida_dados.DadosListagemPaciente;
-import br.com.jota.api.paciente.entity.Paciente;
-import br.com.jota.api.paciente.repository.PacienteRepository;
+import br.com.jota.api.domain.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
+import br.com.jota.api.domain.paciente.dto_entrada_dados.DadosCadastroPaciente;
+import br.com.jota.api.domain.paciente.dto_saida_dados.DadosListagemPaciente;
+import br.com.jota.api.domain.paciente.entity.Paciente;
+import br.com.jota.api.domain.paciente.repository.PacienteRepository;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;

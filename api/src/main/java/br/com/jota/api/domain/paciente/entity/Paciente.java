@@ -1,8 +1,8 @@
-package br.com.jota.api.paciente.entity;
+package br.com.jota.api.domain.paciente.entity;
 
-import br.com.jota.api.endereco.enitity.Endereco;
-import br.com.jota.api.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
-import br.com.jota.api.paciente.dto_entrada_dados.DadosCadastroPaciente;
+import br.com.jota.api.domain.endereco.enitity.Endereco;
+import br.com.jota.api.domain.paciente.dto_entrada_dados.DadosAtualizacaoPaciente;
+import br.com.jota.api.domain.paciente.dto_entrada_dados.DadosCadastroPaciente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

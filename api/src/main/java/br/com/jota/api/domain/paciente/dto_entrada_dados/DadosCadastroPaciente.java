@@ -1,6 +1,6 @@
-package br.com.jota.api.paciente.dto_entrada_dados;
+package br.com.jota.api.domain.paciente.dto_entrada_dados;
 
-import br.com.jota.api.endereco.dto_entrada_dados.DadosEndereco;
+import br.com.jota.api.domain.endereco.dto_entrada_dados.DadosEndereco;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

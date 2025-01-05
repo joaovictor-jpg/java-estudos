@@ -1,4 +1,4 @@
-package br.com.jota.api.medico.enums;
+package br.com.jota.api.domain.medico.enums;
 
 public enum Especialidade {
     ORTOPEDIA,

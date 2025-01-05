@@ -1,7 +1,7 @@
-package br.com.jota.api.medico.dto_entrada_dados;
+package br.com.jota.api.domain.medico.dto_entrada_dados;
 
-import br.com.jota.api.endereco.dto_entrada_dados.DadosEndereco;
-import br.com.jota.api.medico.enums.Especialidade;
+import br.com.jota.api.domain.endereco.dto_entrada_dados.DadosEndereco;
+import br.com.jota.api.domain.medico.enums.Especialidade;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
