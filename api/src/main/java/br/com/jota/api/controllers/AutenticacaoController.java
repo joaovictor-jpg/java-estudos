@@ -1,6 +1,9 @@
 package br.com.jota.api.controllers;
 
 import br.com.jota.api.domain.usuario.dto_entrada_login.DadosUsuarioLogin;
+import br.com.jota.api.domain.usuario.entity.Usuario;
+import br.com.jota.api.services.token.TokenService;
+import br.com.jota.api.services.token.dto.DadosTokenJWT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,14 +19,20 @@ public class AutenticacaoController {
 
     @Autowired
     private AuthenticationManager maneger;
+    @Autowired
+    private TokenService service;
 
     @PostMapping
     public ResponseEntity efetuarLogin(@RequestBody DadosUsuarioLogin dados) {
-        var token = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
+        var autenticationtoken = new UsernamePasswordAuthenticationToken(dados.login(), dados.password());
 
-        var authenticaon = maneger.authenticate(token);
+        var authentication = maneger.authenticate(autenticationtoken);
 
-        return ResponseEntity.ok().build();
+        var usuario = (Usuario) authentication.getPrincipal();
+
+        var tokenjwt = service.gerarToken(usuario);
+
+        return ResponseEntity.ok(new DadosTokenJWT(tokenjwt));
     }
 
 }
