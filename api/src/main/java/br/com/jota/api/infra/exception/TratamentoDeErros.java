@@ -1,4 +1,4 @@
-package br.com.jota.api.infra;
+package br.com.jota.api.infra.exception;
 
 import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.ResponseEntity;
