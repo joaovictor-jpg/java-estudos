@@ -5,9 +5,7 @@ import br.com.jota.api.paciente.dto_entrada_dados.DadosCadastroPaciente;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 
-@Getter
 @Entity(name = "Paciente")
 @Table(name = "pacientes")
 @EqualsAndHashCode(of = "id")
@@ -32,5 +30,29 @@ public class Paciente {
         this.telefone = dados.telefone();
         this.cpf = dados.cpf();
         this.endereco = new Endereco(dados.dadosEndereco());
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public String getNome() {
+        return nome;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public String getTelefone() {
+        return telefone;
+    }
+
+    public String getCpf() {
+        return cpf;
+    }
+
+    public Endereco getEndereco() {
+        return endereco;
     }
 }
