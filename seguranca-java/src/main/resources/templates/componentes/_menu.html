@@ -1,5 +1,5 @@
 <header class="header" xmlns:th="http://thymeleaf.org" th:fragment="menu"
-    xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+        xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
     <div class="container header-container">
         <a href="../index.html" th:href="@{/}" class="logo">
             <img src="../../static/assets/logo.png" th:src="@{/assets/logo.png}" alt="Logo Voll">
@@ -12,6 +12,10 @@
                     <ul class="dropdown-menu">
                         <li>
                             <a href="../medico/listagem-medicos.html" th:href="@{/medicos}">Médicos</a>
+                        </li>
+
+                        <li>
+                            <a href="../paciente/listagem-pacientes.html" th:href="@{/pacientes}">Pacientes</a>
                         </li>
 
                         <li>
