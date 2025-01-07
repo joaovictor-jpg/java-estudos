@@ -2,6 +2,9 @@ package med.voll.web_application.domain.usuario;
 
 import java.util.Collection;
 
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -21,6 +24,16 @@ public class Usuario implements UserDetails {
     private String nome;
     private String email;
     private String senha;
+
+    public Usuario() {
+    }
+
+    public Usuario(String nome, String email, String senha) {
+        this.nome = nome;
+        this.email = email;
+        this.senha = senha;
+    }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
@@ -38,6 +51,7 @@ public class Usuario implements UserDetails {
         return nome;
     }
 
-
-    
+    public Long getId() {
+        return id;
+    }
 }
