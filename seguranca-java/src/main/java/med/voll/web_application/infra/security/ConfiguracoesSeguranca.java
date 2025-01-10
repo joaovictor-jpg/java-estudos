@@ -1,5 +1,6 @@
 package med.voll.web_application.infra.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -10,11 +11,14 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class ConfiguracoesSeguranca {
+    @Autowired
+    private FiltroAlteracaoSenha filtroAlteracaoSenha;
 
     @Bean
     public SecurityFilterChain filtrosSeguranca(HttpSecurity http) throws Exception {
@@ -27,7 +31,9 @@ public class ConfiguracoesSeguranca {
 //                    req.requestMatchers(HttpMethod.POST, "/consultas/**").hasAnyRole("ATENDENTE", "PACIENTE");
 //                    req.requestMatchers(HttpMethod.PUT, "/consultas/**").hasAnyRole("ATENDENTE", "PACIENTE");
                     req.anyRequest().authenticated();
-                }).formLogin(form -> form.loginPage("/login")
+                })
+                .addFilterBefore(filtroAlteracaoSenha, UsernamePasswordAuthenticationFilter.class)
+                .formLogin(form -> form.loginPage("/login")
                         .defaultSuccessUrl("/")
                         .permitAll())
                 .logout(logout -> logout.logoutSuccessUrl("/login?logout").permitAll())
