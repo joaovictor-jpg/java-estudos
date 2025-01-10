@@ -25,6 +25,7 @@ public class ConfiguracoesSeguranca {
         return http.authorizeHttpRequests(req -> {
                     req.requestMatchers("/css/**", "/js/**", "/assets/**").permitAll();
                     req.requestMatchers("/home").permitAll();
+                    req.requestMatchers("/esqueci-minha-senha").permitAll();
 //                    req.requestMatchers("/pacientes/**").hasRole("ATENDENTE");
 //                    req.requestMatchers(HttpMethod.GET, "/medicos").hasAnyRole("ATENDENTE", "PACIENTE");
 //                    req.requestMatchers("/medicos/**").hasRole("ATENDENTE");
