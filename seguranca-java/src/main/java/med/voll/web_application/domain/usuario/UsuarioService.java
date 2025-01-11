@@ -1,15 +1,22 @@
 package med.voll.web_application.domain.usuario;
 
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpSession;
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import med.voll.web_application.domain.RegraDeNegocioException;
 import med.voll.web_application.domain.email.EmailService;
+import med.voll.web_application.domain.paciente.DadosCadastroPaciente;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -74,5 +81,41 @@ public class UsuarioService implements UserDetailsService {
         repository.save(usuario);
 
         emailService.enviarEmailSenha(usuario);
+
+//        // Força o logout do usuário
+//        SecurityContextHolder.clearContext(); // Limpa o contexto de segurança
+//
+//        // Invalida a sessão atual, deslogando o usuário
+//        ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+//        HttpServletRequest request = attr.getRequest();
+//        HttpSession session = request.getSession(false);
+//        if (session != null) {
+//            session.invalidate(); // Invalida a sessão
+//        }
+    }
+
+    public void recuperarConta(String codigo, DadosRecuperacaoConta dados) {
+        var usuario = repository.findByTokenIgnoreCase(codigo).orElseThrow(
+                () -> new RegraDeNegocioException("Link Invalido")
+        );
+
+        if (usuario.getExpiracaoToken().isBefore(LocalDateTime.now())) {
+            throw new RegraDeNegocioException("Link expirado!");
+        }
+
+        if (!dados.novaSenha().equals(dados.novaSenhaConfirmacao())) {
+            throw new RegraDeNegocioException("Senha e confirmação são diferentes!");
+        }
+
+        var senha = encriptador.encode(dados.novaSenha());
+
+        usuario.alterarSenha(senha);
+
+        usuario.setToken(null);
+        usuario.setExpiracaoToken(null);
+
+        usuario.setSenhaAlterada(true);
+
+        repository.save(usuario);
     }
 }
