@@ -10,16 +10,33 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
 public class ConfiguracoesSeguranca {
 
+    private final FiltroTokenAcesso filtroTokenAcesso;
+
+
+    public ConfiguracoesSeguranca(FiltroTokenAcesso filtroTokenAcesso) {
+        this.filtroTokenAcesso = filtroTokenAcesso;
+    }
+
     @Bean
     public SecurityFilterChain filtrosSeguranca(HttpSecurity http) throws Exception {
-        return http.sessionManagement(sm -> sm.sessionCreationPolicy(
+        return http
+        .authorizeHttpRequests(
+            req -> {
+                req.requestMatchers("/login", "/atulaziar-token").permitAll();
+                req.anyRequest().authenticated();
+            }
+        )
+        .sessionManagement(sm -> sm.sessionCreationPolicy(
             SessionCreationPolicy.STATELESS
-        )).csrf(csrf -> csrf.disable())
+        ))
+        .csrf(csrf -> csrf.disable())
+        .addFilterBefore(filtroTokenAcesso, UsernamePasswordAuthenticationFilter.class)
         .build();
     }
 
