@@ -18,7 +18,6 @@ public class ConfiguracoesSeguranca {
 
     private final FiltroTokenAcesso filtroTokenAcesso;
 
-
     public ConfiguracoesSeguranca(FiltroTokenAcesso filtroTokenAcesso) {
         this.filtroTokenAcesso = filtroTokenAcesso;
     }
@@ -26,18 +25,17 @@ public class ConfiguracoesSeguranca {
     @Bean
     public SecurityFilterChain filtrosSeguranca(HttpSecurity http) throws Exception {
         return http
-        .authorizeHttpRequests(
-            req -> {
-                req.requestMatchers("/login", "/atulaziar-token").permitAll();
-                req.anyRequest().authenticated();
-            }
-        )
-        .sessionManagement(sm -> sm.sessionCreationPolicy(
-            SessionCreationPolicy.STATELESS
-        ))
-        .csrf(csrf -> csrf.disable())
-        .addFilterBefore(filtroTokenAcesso, UsernamePasswordAuthenticationFilter.class)
-        .build();
+                .authorizeHttpRequests(
+                        req -> {
+                            req.requestMatchers("/login", "/atulaziar-token", "/registrar", "/verificar-conta", "/alterar-senha", "/atualizar-senha")
+                                    .permitAll();
+                            req.anyRequest().authenticated();
+                        })
+                .sessionManagement(sm -> sm.sessionCreationPolicy(
+                        SessionCreationPolicy.STATELESS))
+                .csrf(csrf -> csrf.disable())
+                .addFilterBefore(filtroTokenAcesso, UsernamePasswordAuthenticationFilter.class)
+                .build();
     }
 
     @Bean
@@ -46,7 +44,8 @@ public class ConfiguracoesSeguranca {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration)
+            throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
 }

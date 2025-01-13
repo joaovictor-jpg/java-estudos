@@ -24,10 +24,26 @@ public class TokenService {
             return JWT.create()
                     .withIssuer("Forum Hub")
                     .withSubject(usuario.getUsername())
+                    .withClaim("id", usuario.getId())
                     .withExpiresAt(expiracao(30))
                     .sign(algorithm);
         } catch (JWTCreationException exception) {
             throw new RegraDeNegocioException("Error ao gerar token JWT de acesso!");
+        }
+    }
+
+    public Long recuperarClaim(String token) {
+        try {
+            Algorithm algorithm = Algorithm.HMAC256("123456789");
+            JWTVerifier verifier = JWT.require(algorithm)
+                    .withIssuer("Forum Hub")
+                    .build();
+
+            DecodedJWT decodedJWT = verifier.verify(token);
+            Long id = decodedJWT.getClaim("id").asLong();
+            return id;
+        } catch (JWTVerificationException exception) {
+            throw new RegraDeNegocioException("Token inválido ou expirado: " + exception.getMessage());
         }
     }
 
