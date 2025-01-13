@@ -9,6 +9,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.forum_hub.domain.autenticacao.TokenService;
+import br.com.forum_hub.domain.perfil.DadosPerfil;
+import br.com.forum_hub.domain.perfil.PerfilNome;
+import br.com.forum_hub.domain.perfil.PerfilRepository;
 import br.com.forum_hub.infra.email.EmailService;
 import br.com.forum_hub.infra.exception.RegraDeNegocioException;
 import jakarta.transaction.Transactional;
@@ -20,13 +23,15 @@ public class UsuarioService implements UserDetailsService {
     private final PasswordEncoder encoder;
     private final EmailService emailService;
     private final TokenService tokenService;
+    private final PerfilRepository perfilRepository;
 
     public UsuarioService(UsuarioRepository repository, PasswordEncoder encoder, EmailService emailService,
-            TokenService tokenService) {
+            TokenService tokenService, PerfilRepository perfilRepository) {
         this.repository = repository;
         this.encoder = encoder;
         this.emailService = emailService;
         this.tokenService = tokenService;
+        this.perfilRepository = perfilRepository;
     }
 
     @Override
@@ -46,7 +51,9 @@ public class UsuarioService implements UserDetailsService {
             throw new RegraDeNegocioException("Já existe uma conta cadastrada com esse email ou nome de usuário!");
         }
 
-        var usuario = new Usuario(dados, senhaCriptografada);
+        var perfil = perfilRepository.findByNome(PerfilNome.ESTUDANTE);
+
+        var usuario = new Usuario(dados, senhaCriptografada, perfil);
 
         emailService.enviarEmailVerificacao(usuario);
 
@@ -137,6 +144,26 @@ public class UsuarioService implements UserDetailsService {
     @Transactional
     public void desativarUsuario(Usuario usuario) {
         usuario.desativar();
+    }
+
+    @Transactional
+    public Usuario adicionarPerfil(Long id, DadosPerfil dados) {
+        var usuario = repository.findById(id).orElseThrow();
+        var perfil = perfilRepository.findByNome(dados.perfilNome());
+
+        usuario.adicionarPerfil(perfil);
+
+        return repository.save(usuario);
+    }
+
+    @Transactional
+    public Usuario removerPerfil(Long id, DadosPerfil dados) {
+        var usuario = repository.findById(id).orElseThrow();
+        var perfil = perfilRepository.findByNome(dados.perfilNome());
+
+        usuario.removerPerfil(perfil);
+        
+        return usuario;
     }
 
 }

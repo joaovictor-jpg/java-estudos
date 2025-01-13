@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
+import br.com.forum_hub.domain.perfil.DadosPerfil;
 import br.com.forum_hub.domain.usuario.AtualizarSenha;
 import br.com.forum_hub.domain.usuario.DadosAtualizarUsuario;
 import br.com.forum_hub.domain.usuario.DadosCadostroUsuarios;
@@ -78,6 +79,18 @@ public class UsuarioController {
     public ResponseEntity<Void> banirUsuario(@AuthenticationPrincipal Usuario logado) {
         service.desativarUsuario(logado);
         return ResponseEntity.noContent().build();
+    }
+
+    @PatchMapping("/adicionar-perfil/{id}")
+    public ResponseEntity<DadosListagemUsuario> adicionarPerfil(@PathVariable Long id, @Valid @RequestBody DadosPerfil dados) {
+        var usuario = service.adicionarPerfil(id, dados);
+        return ResponseEntity.ok(new DadosListagemUsuario(usuario));
+    }
+
+    @PatchMapping("/remover-perfil/{id}")
+    public ResponseEntity<DadosListagemUsuario> removerPerfil(@PathVariable Long id, @RequestBody @Valid DadosPerfil dados){
+        var usuario = service.removerPerfil(id, dados);
+        return ResponseEntity.ok(new DadosListagemUsuario(usuario));
     }
 
 }

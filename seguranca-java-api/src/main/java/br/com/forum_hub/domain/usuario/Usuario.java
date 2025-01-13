@@ -1,18 +1,24 @@
 package br.com.forum_hub.domain.usuario;
 
-import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Collection;
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import br.com.forum_hub.domain.perfil.Perfil;
 import br.com.forum_hub.infra.exception.RegraDeNegocioException;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
 @Entity(name = "Usuario")
@@ -32,11 +38,14 @@ public class Usuario implements UserDetails {
     private String token;
     private LocalDateTime expiracaoToken;
     private boolean ativo;
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "usuarios_perfis", joinColumns = @JoinColumn(name = "usuario_id"), inverseJoinColumns = @JoinColumn(name = "perfil_id"))
+    private List<Perfil> perfil = new ArrayList<>();
 
     public Usuario() {
     }
 
-    public Usuario(DadosCadostroUsuarios dados, String senhaCriptografada) {
+    public Usuario(DadosCadostroUsuarios dados, String senhaCriptografada, Perfil perfil) {
         this.nome = dados.nome();
         this.email = dados.email();
         this.senha = senhaCriptografada;
@@ -48,6 +57,8 @@ public class Usuario implements UserDetails {
         this.token = UUID.randomUUID().toString();
         this.expiracaoToken = LocalDateTime.now().plusMinutes(30);
         this.ativo = false;
+        
+        this.perfil.add(perfil);
     }
 
     @Override
@@ -61,7 +72,7 @@ public class Usuario implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return null;
+        return perfil;
     }
 
     public Long getId() {
@@ -127,6 +138,15 @@ public class Usuario implements UserDetails {
         this.verificado = true;
         this.token = null;
         this.expiracaoToken = null;
+        this.ativo = true;
+    }
+
+    public void adicionarPerfil(Perfil perfil2) {
+        this.perfil.add(perfil2);
+    }
+
+    public void removerPerfil(Perfil perfil) {
+        this.perfil.remove(perfil);
     }
 
 }
