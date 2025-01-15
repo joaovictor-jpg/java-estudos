@@ -3,7 +3,11 @@ package br.com.forum_hub.domain.topico;
 import br.com.forum_hub.domain.curso.CursoService;
 import br.com.forum_hub.domain.usuario.Usuario;
 import br.com.forum_hub.infra.exception.RegraDeNegocioException;
+import br.com.forum_hub.services.HierarquiaService;
 import jakarta.transaction.Transactional;
+
+import java.nio.file.AccessDeniedException;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -14,10 +18,12 @@ public class TopicoService {
 
     private final TopicoRepository repository;
     private final CursoService cursoService;
+    private final HierarquiaService hierarquiaService;
 
-    public TopicoService(TopicoRepository repository, CursoService cursoService) {
+    public TopicoService(TopicoRepository repository, CursoService cursoService, HierarquiaService hierarquiaService) {
         this.repository = repository;
         this.cursoService = cursoService;
+        this.hierarquiaService = hierarquiaService;
     }
 
     @Transactional
@@ -26,7 +32,9 @@ public class TopicoService {
         var topico = new Topico(dados, curso, autor);
         return repository.save(topico);
     }
-    public Page<DadosListagemTopico> listar(String categoria, Long idCurso, Boolean semResposta, Boolean solucionados, Pageable paginacao) {
+
+    public Page<DadosListagemTopico> listar(String categoria, Long idCurso, Boolean semResposta, Boolean solucionados,
+            Pageable paginacao) {
         Specification<Topico> spec = Specification.where(TopicoSpecification.estaAberto())
                 .and(TopicoSpecification.temCategoria(categoria))
                 .and(TopicoSpecification.temCursoId(idCurso))
@@ -38,8 +46,12 @@ public class TopicoService {
     }
 
     @Transactional
-    public Topico atualizar(DadosAtualizacaoTopico dados) {
+    public Topico atualizar(DadosAtualizacaoTopico dados, Usuario logado) throws AccessDeniedException {
         var topico = buscarPeloId(dados.id());
+
+        if (hierarquiaService.usuarioNaoTemPermissoes(logado, topico.getAutor(), "ROLE_INSTRUTOR"))
+            throw new AccessDeniedException("Você não pode atualizar essa topico como solução!");
+
         var curso = cursoService.buscarPeloId(dados.cursoId());
         return topico.atualizarInformacoes(dados, curso);
     }

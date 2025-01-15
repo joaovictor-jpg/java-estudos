@@ -75,9 +75,9 @@ public class UsuarioController {
         return ResponseEntity.ok().body("Senha alterada com sucesso");
     }
 
-    @DeleteMapping("/desativar")
-    public ResponseEntity<Void> banirUsuario(@AuthenticationPrincipal Usuario logado) {
-        service.desativarUsuario(logado);
+    @DeleteMapping("/desativar/{id}")
+    public ResponseEntity<Void> banirUsuario(@AuthenticationPrincipal Usuario logado, @PathVariable Long id) {
+        service.desativarUsuario(logado, id);
         return ResponseEntity.noContent().build();
     }
 

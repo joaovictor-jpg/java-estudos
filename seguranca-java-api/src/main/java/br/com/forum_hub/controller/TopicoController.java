@@ -64,8 +64,8 @@ public class TopicoController {
     }
 
     @PutMapping
-    public ResponseEntity<DadosListagemTopico> atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados){
-        var topico = service.atualizar(dados);
+    public ResponseEntity<DadosListagemTopico> atualizar(@RequestBody @Valid DadosAtualizacaoTopico dados, @AuthenticationPrincipal Usuario Logado){
+        var topico = service.atualizar(dados, Logado);
         return ResponseEntity.ok(new DadosListagemTopico(topico));
     }
 

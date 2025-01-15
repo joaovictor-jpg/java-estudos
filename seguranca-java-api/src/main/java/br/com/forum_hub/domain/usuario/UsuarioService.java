@@ -1,5 +1,6 @@
 package br.com.forum_hub.domain.usuario;
 
+import java.nio.file.AccessDeniedException;
 import java.util.Optional;
 
 import org.springframework.security.core.userdetails.UserDetails;
@@ -14,6 +15,7 @@ import br.com.forum_hub.domain.perfil.PerfilNome;
 import br.com.forum_hub.domain.perfil.PerfilRepository;
 import br.com.forum_hub.infra.email.EmailService;
 import br.com.forum_hub.infra.exception.RegraDeNegocioException;
+import br.com.forum_hub.services.HierarquiaService;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -25,13 +27,16 @@ public class UsuarioService implements UserDetailsService {
     private final TokenService tokenService;
     private final PerfilRepository perfilRepository;
 
+    private final HierarquiaService hierarquiaService;
+
     public UsuarioService(UsuarioRepository repository, PasswordEncoder encoder, EmailService emailService,
-            TokenService tokenService, PerfilRepository perfilRepository) {
+            TokenService tokenService, PerfilRepository perfilRepository, HierarquiaService hierarquiaService) {
         this.repository = repository;
         this.encoder = encoder;
         this.emailService = emailService;
         this.tokenService = tokenService;
         this.perfilRepository = perfilRepository;
+        this.hierarquiaService = hierarquiaService;
     }
 
     @Override
@@ -142,7 +147,11 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional
-    public void desativarUsuario(Usuario usuario) {
+    public void desativarUsuario(Usuario logado, Long id) throws AccessDeniedException {
+        Usuario usuario = repository.findById(id).orElseThrow();
+        if (hierarquiaService.usuarioNaoTemPermissoes(logado, usuario, "ROLE_ADMIN"))
+            throw new AccessDeniedException("Você não pode deletar essa conta!");
+
         usuario.desativar();
     }
 
@@ -162,7 +171,7 @@ public class UsuarioService implements UserDetailsService {
         var perfil = perfilRepository.findByNome(dados.perfilNome());
 
         usuario.removerPerfil(perfil);
-        
+
         return usuario;
     }
 

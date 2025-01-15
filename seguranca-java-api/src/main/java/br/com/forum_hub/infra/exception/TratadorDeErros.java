@@ -17,7 +17,7 @@ import javax.security.sasl.AuthenticationException;
 @RestControllerAdvice
 public class TratadorDeErros {
 
-    @ExceptionHandler({EntityNotFoundException.class, NoSuchElementException.class})
+    @ExceptionHandler({ EntityNotFoundException.class, NoSuchElementException.class })
     public ResponseEntity<Void> tratarErro404() {
         return ResponseEntity.notFound().build();
     }
@@ -31,6 +31,16 @@ public class TratadorDeErros {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<String> tratarErro400(HttpMessageNotReadableException ex) {
         return ResponseEntity.badRequest().body(ex.getMessage());
+    }
+
+    @ExceptionHandler(org.springframework.security.access.AccessDeniedException.class)
+    public ResponseEntity<String> tratarErro403Spring(org.springframework.security.access.AccessDeniedException ex) {
+        return ResponseEntity.status(HttpStatus.FORBIDDEN).body(ex.getMessage());
+    }
+
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<String> tratarErro401(AuthenticationException ex) {
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(ex.getMessage());
     }
 
     @ExceptionHandler(AccessDeniedException.class)
@@ -50,7 +60,7 @@ public class TratadorDeErros {
 
     @ExceptionHandler(Exception.class)
     public ResponseEntity<String> tratarErro500(Exception ex) {
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " +ex.getLocalizedMessage());
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro: " + ex.getLocalizedMessage());
     }
 
     private record DadosErroValidacao(String campo, String mensagem) {
