@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class ProcessoSeletivo {
@@ -14,6 +15,37 @@ public class ProcessoSeletivo {
             if(candidatos[i] != null) {
                 System.out.println("O candidato de Nº " + (i+1) + " é " + candidatos[i]);
             }
+        }
+
+        System.out.println();
+
+        for (String candidato : candidatos) {
+            entrandoEmContato(candidato);
+        }
+    }
+
+    static boolean atendeu() {
+        return new Random().nextInt(3)==1;
+    }
+
+    static void entrandoEmContato(String candidato) {
+        int tentativaRealizadas = 1;
+        boolean continuarTentando = true;
+        boolean atendeu = false;
+        do {
+            atendeu = atendeu();
+            continuarTentando = !atendeu;
+            if(continuarTentando) {
+                tentativaRealizadas++;
+            } else {
+                System.out.println("Contato realizado com sucesso");;
+            }
+        } while(continuarTentando && tentativaRealizadas<3);
+
+        if(atendeu) {
+            System.out.println("CONSEGUIMOS CONTATO COM " + candidato + " NA " + tentativaRealizadas + " TENTATIVA");
+        } else {
+            System.out.println("NÃO CONSEGUIMOS CONTATO COM " + candidato + ", NÚMERO MÁXIMO DE TENTATIVAS " + tentativaRealizadas + " REALIZADAS");
         }
     }
 
@@ -47,7 +79,7 @@ public class ProcessoSeletivo {
 
     static double valorPretendido() {
         return ThreadLocalRandom.current().nextDouble(1800, 2200);
-    }
+    } 
 
     static boolean analisarCandidato(double salarioPretendido, double salarioBase) {
         if (salarioBase >= salarioPretendido) {
