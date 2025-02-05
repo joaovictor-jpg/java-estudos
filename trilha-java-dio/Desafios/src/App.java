@@ -6,11 +6,9 @@ public class App {
 
         double saldo = scanner.nextDouble();
 
-        // TODO: Implemente a classificação do cliente com base no saldo:
-        
-        if(saldo < 0.00) {
+        if (saldo < 0.00) {
             System.out.println("Negativado");
-        } else if(saldo <= 500.0) {
+        } else if (saldo <= 500.0) {
             System.out.println("Baixo");
         } else {
             System.out.println("Confortavel");
