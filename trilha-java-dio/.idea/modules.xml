@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/DesafioControleFluxo/DesafioControleFluxo.iml" filepath="$PROJECT_DIR$/DesafioControleFluxo/DesafioControleFluxo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Desafios/Desafios.iml" filepath="$PROJECT_DIR$/Desafios/Desafios.iml" />
+      <module fileurl="file://$PROJECT_DIR$/POO/POO.iml" filepath="$PROJECT_DIR$/POO/POO.iml" />
+      <module fileurl="file://$PROJECT_DIR$/collections/collections.iml" filepath="$PROJECT_DIR$/collections/collections.iml" />
+      <module fileurl="file://$PROJECT_DIR$/contaBancara/contaBancara.iml" filepath="$PROJECT_DIR$/contaBancara/contaBancara.iml" />
+      <module fileurl="file://$PROJECT_DIR$/enums-projeto/enums-projeto.iml" filepath="$PROJECT_DIR$/enums-projeto/enums-projeto.iml" />
+      <module fileurl="file://$PROJECT_DIR$/get-started/get-started.iml" filepath="$PROJECT_DIR$/get-started/get-started.iml" />
+      <module fileurl="file://$PROJECT_DIR$/java-anatomia-class/java-anatomia-class.iml" filepath="$PROJECT_DIR$/java-anatomia-class/java-anatomia-class.iml" />
+      <module fileurl="file://$PROJECT_DIR$/petshop/petshop.iml" filepath="$PROJECT_DIR$/petshop/petshop.iml" />
+      <module fileurl="file://$PROJECT_DIR$/processo-seletivo/processo-seletivo.iml" filepath="$PROJECT_DIR$/processo-seletivo/processo-seletivo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/trilha-java-dio.iml" filepath="$PROJECT_DIR$/.idea/trilha-java-dio.iml" />
+    </modules>
+  </component>
+</project>
