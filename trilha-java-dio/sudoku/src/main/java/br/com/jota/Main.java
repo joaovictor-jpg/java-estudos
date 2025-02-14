@@ -1,7 +1,6 @@
 package br.com.jota;
 
 import br.com.jota.entities.Board;
-import br.com.jota.entities.BoardTemplate;
 import br.com.jota.entities.Space;
 
 import java.util.*;
