@@ -2,12 +2,15 @@ package br.com.jota.aula_spring_data_jpa.service;
 
 import br.com.jota.aula_spring_data_jpa.model.User;
 import br.com.jota.aula_spring_data_jpa.repository.UserRepository;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
-public class UserService {
+public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
 
@@ -37,7 +40,7 @@ public class UserService {
 
         User userDb = userOptional.get();
 
-        if (user.getNome() != null) userDb.setNome(user.getNome());
+        if (user.getName() != null) userDb.setName(user.getName());
 
         if (user.getUsername() != null) userDb.setUsername(user.getUsername());
 
@@ -45,5 +48,10 @@ public class UserService {
 
         repository.save(userDb);
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return repository.findByUsernameIgnoreCase(username).orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado!"));
     }
 }

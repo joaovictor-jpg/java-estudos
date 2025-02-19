@@ -1,47 +1,64 @@
 package br.com.jota.aula_spring_data_jpa.model;
 
 import jakarta.persistence.*;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+
+import java.util.Collection;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
-public class User {
+public class User implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "user_id")
     private Integer id;
     @Column(length = 50, nullable = false)
-    private String nome;
-    @Column(length = 50, nullable = false)
+    private String name;
+    @Column(length = 50, nullable = false, unique = true)
     private String username;
     @Column(length = 100, nullable = false)
     private String password;
+
+    public User() {
+    }
+
+    public User(String nome, String username, String password) {
+        this.name = nome;
+        this.username = username;
+        this.password = password;
+    }
 
     public Integer getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return null;
     }
 
-    public String getNome() {
-        return nome;
+    @Override
+    public String getPassword() {
+        return this.password;
     }
 
-    public void setNome(String nome) {
-        this.nome = nome;
-    }
-
+    @Override
     public String getUsername() {
-        return username;
+        return this.username;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setUsername(String username) {
         this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
     }
 
     public void setPassword(String password) {
@@ -52,7 +69,7 @@ public class User {
     public String toString() {
         return "User{" +
                 "id=" + id +
-                ", nome='" + nome + '\'' +
+                ", nome='" + name + '\'' +
                 ", username='" + username + '\'' +
                 ", password='" + password + '\'' +
                 '}';
