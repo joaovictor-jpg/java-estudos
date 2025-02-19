@@ -5,6 +5,7 @@ import br.com.jota.aula_spring_data_jpa.repository.UserRepository;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -13,12 +14,19 @@ import java.util.List;
 public class UserService implements UserDetailsService {
 
     private final UserRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UserService(UserRepository repository) {
+    public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public void createdUser(User user) {
+
+        var encryptedPassword = passwordEncoder.encode(user.getPassword());
+
+        user.setPassword(encryptedPassword);
+
         repository.save(user);
     }
 
@@ -44,7 +52,7 @@ public class UserService implements UserDetailsService {
 
         if (user.getUsername() != null) userDb.setUsername(user.getUsername());
 
-        if (user.getPassword() != null) userDb.setPassword(user.getPassword());
+        if (user.getPassword() != null) userDb.setPassword(passwordEncoder.encode(user.getPassword()));
 
         repository.save(userDb);
 

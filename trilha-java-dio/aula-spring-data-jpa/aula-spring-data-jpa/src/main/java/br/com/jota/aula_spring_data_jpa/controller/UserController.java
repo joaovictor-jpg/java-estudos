@@ -14,8 +14,8 @@ public class UserController {
 
     private final UserService service;
 
-    public UserController(UserService servece) {
-        this.service = servece;
+    public UserController(UserService service) {
+        this.service = service;
     }
 
     @PostMapping()
