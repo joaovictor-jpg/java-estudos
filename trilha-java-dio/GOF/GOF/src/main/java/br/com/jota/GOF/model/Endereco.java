@@ -5,9 +5,9 @@ import jakarta.persistence.*;
 @Entity
 @Table(name = "enderecos")
 public class Endereco {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String cep;
     private String logradouro;
     private String complemento;
     private String bairro;
@@ -18,12 +18,12 @@ public class Endereco {
     private String ddd;
     private String siafi;
 
-    public Long getId() {
-        return id;
+    public String getCep() {
+        return cep;
     }
 
-    public void setId(Long id) {
-        this.id = id;
+    public void setId(String cet) {
+        this.cep = cep;
     }
 
     public String getLogradouro() {
