@@ -1,0 +1,19 @@
+package br.com.jota.api.domain.consulta.validacao;
+
+import br.com.jota.api.domain.ValidacaoException;
+import br.com.jota.api.domain.consulta.ConsultaRepository;
+import br.com.jota.api.domain.consulta.DadosAgendamentoConsulta;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+
+@Component
+public class ValidadorMedicoComOutraComsultaNoMesmoHorario implements ValidadorAgendamentoDeConsulta {
+    @Autowired
+    private ConsultaRepository consultaRepository;
+    public void validar(DadosAgendamentoConsulta dados) {
+        Boolean medicoPossuiConsultaNoMesmoDia = consultaRepository.existsByMedicoIdAndData(dados.idMedico(), dados.data());
+        if (medicoPossuiConsultaNoMesmoDia) {
+            throw new ValidacaoException("Médico já possui outras consultas nesse mesmo horário");
+        }
+    }
+}
