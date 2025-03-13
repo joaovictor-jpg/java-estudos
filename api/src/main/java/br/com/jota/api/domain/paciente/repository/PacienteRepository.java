@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.Query;
 public interface PacienteRepository extends JpaRepository<Paciente, Long> {
     Page<Paciente> findAllByAtivoTrue(Pageable pageable);
 
-    @Query("SELECT p.ativo FROM Paciente WHERE id = :id")
+    @Query("SELECT p.ativo FROM Paciente p WHERE id = :id")
     Boolean findAtivoById(@NotNull Long id);
 }

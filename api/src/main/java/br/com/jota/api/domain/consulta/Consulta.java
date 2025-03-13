@@ -7,7 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.apache.logging.log4j.util.Lazy;
 
 import java.time.LocalDateTime;
 
@@ -23,9 +22,9 @@ public class Consulta {
     private Long id;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "medico_id")
-    private Medico idMedico;
+    private Medico medico;
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "paciente_id")
-    private Paciente idPaciente;
+    private Paciente paciente;
     private LocalDateTime data;
 }
