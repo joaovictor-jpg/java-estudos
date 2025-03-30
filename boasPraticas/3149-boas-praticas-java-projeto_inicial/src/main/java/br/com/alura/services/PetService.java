@@ -19,7 +19,7 @@ public class PetService {
         this.client = client;
     }
 
-    public void listaétDoAbrigo() throws IOException, InterruptedException {
+    public void listaPetDoAbrigo() throws IOException, InterruptedException {
         System.out.println("Digite o id ou nome do abrigo:");
         String idOuNome = new Scanner(System.in).nextLine();
 
