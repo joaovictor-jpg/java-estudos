@@ -35,8 +35,8 @@ public class AbrigoController {
             return ResponseEntity.badRequest().body("Dados já cadastrados para outro abrigo!");
         } else {
             repository.save(abrigo);
-            return ResponseEntity.ok().build();
         }
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping("/{idOuNome}/pets")
