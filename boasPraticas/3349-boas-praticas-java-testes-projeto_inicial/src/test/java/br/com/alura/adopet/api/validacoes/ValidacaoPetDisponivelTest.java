@@ -13,8 +13,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 @ExtendWith(MockitoExtension.class)
 class ValidacaoPetDisponivelTest {
 
@@ -41,7 +39,7 @@ class ValidacaoPetDisponivelTest {
     }
 
     @Test
-    @Description("Deve lançar uma exeção de ValidacaoException quando pet está adotado")
+    @Description("Deve lançar uma exeção (ValidacaoException) quando pet está adotado")
     void validarCena2() {
         BDDMockito.given(petRepository.getReferenceById(dto.idPet())).willReturn(pet);
         BDDMockito.given(pet.getAdotado()).willReturn(true);
