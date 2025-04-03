@@ -26,6 +26,7 @@ public class AbrigoController {
     @Autowired
     private PetService petService;
 
+
     @GetMapping
     public ResponseEntity<List<AbrigoDto>> listar() {
         List<AbrigoDto> abrigos = abrigoService.listar();
@@ -36,7 +37,7 @@ public class AbrigoController {
     @Transactional
     public ResponseEntity<String> cadastrar(@RequestBody @Valid CadastroAbrigoDto dto) {
         try {
-            abrigoService.cadatrar(dto);
+            abrigoService.cadastrar(dto);
             return ResponseEntity.ok().build();
         } catch (ValidacaoException exception) {
             return ResponseEntity.badRequest().body(exception.getMessage());
