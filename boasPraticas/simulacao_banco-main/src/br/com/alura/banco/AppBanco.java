@@ -1,4 +1,4 @@
-package br.com.alura;
+package br.com.alura.banco;
 
 import java.math.BigDecimal;
 
