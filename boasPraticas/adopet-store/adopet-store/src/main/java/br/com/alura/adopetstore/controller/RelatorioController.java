@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.concurrent.ExecutionException;
+
 @RestController
 @RequestMapping("admin/relatorios")
 public class RelatorioController {
@@ -16,14 +18,14 @@ public class RelatorioController {
     private RelatorioService service;
 
     @GetMapping("estoque")
-    public ResponseEntity<RelatorioEstoque> obterInfoEstoque(){
-        var relatorio = service.infoEstoque();
+    public ResponseEntity<RelatorioEstoque> obterInfoEstoque() throws ExecutionException, InterruptedException {
+        var relatorio = service.infoEstoque().get();
         return ResponseEntity.ok(relatorio);
     }
 
     @GetMapping("faturamento")
-    public ResponseEntity<RelatorioFaturamento> obterInfoFaturamento(){
-        var relatorio = service.faturamentoObtido();
+    public ResponseEntity<RelatorioFaturamento> obterInfoFaturamento() throws ExecutionException, InterruptedException {
+        var relatorio = service.faturamentoObtido().get();
         return ResponseEntity.ok(relatorio);
     }
 }

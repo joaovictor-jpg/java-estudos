@@ -26,6 +26,7 @@ public class PedidoController {
     public ResponseEntity<PedidoDTO> cadastrar(@Valid @RequestBody CadastroPedidoDTO dto, @AuthenticationPrincipal Usuario usuario) {
         var pedido = this.service.cadastrar(dto, usuario);
         email.enviar(pedido, usuario);
+        System.out.println("Thread Controller: " + Thread.currentThread().getName());
         return ResponseEntity.ok(pedido);
     }
 }
