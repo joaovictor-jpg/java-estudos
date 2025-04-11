@@ -1,0 +1,14 @@
+version: "3.4"
+
+services:
+  db:
+    image: mysql:8.0
+    container_name: mysql_container_pedidos
+    restart: always
+    environment:
+      - MYSQL_ROOT_PASSWORD=${DB_PASSWORD}
+      - MYSQL_DATABASE=${DB_NAME}
+    volumes:
+      - ./mysql-container-pedido/api/db/data:/var/lib/mysql
+    ports:
+      - "3307:3307"
