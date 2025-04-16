@@ -34,4 +34,4 @@ build/
 
 
 .env
-mysql-container-pedido
+mysql-container-pedido/
